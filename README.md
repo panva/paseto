@@ -10,11 +10,14 @@ All crypto operations are using their async node's crypto API, where such API is
 operation is pushed to a [Worker Thread](https://nodejs.org/api/worker_threads.html) so that your
 main thread's I/O is not blocked.
 
+<br>
+
 |  | v1.local | v1.public | v2.local | v2.public |
 | -- | -- | -- | -- | -- |
 | supported? | ✓ | ✓ | ✓ | ✓ |
 
 <br>
+
 Have a question about using paseto? - [ask][ask].  
 Found a bug? - [report it][bug].  
 Missing a feature? - If it wasn't already discussed before, [ask for it][suggest-feature].  
