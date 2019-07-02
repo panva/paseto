@@ -535,6 +535,41 @@ Generates a new secret or private key for a given purpose.
 
 ---
 
+## Decode
+
+#### decode(token)
+
+Decodes a PASETO, does not perform any payload validations.
+
+- `token`: `<String>` PASETO to decrypt and validate
+- Returns: `<Object>`
+
+<details>
+<summary><em><strong>Example</strong></em> (Click to expand)</summary>
+
+```js
+const { decode } = require('paseto')
+
+const token = 'v2.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6ImZvbyIsImlhdCI6IjIwMTktMDctMDJUMTY6MzQ6NDMuMjA0WiIsImV4cCI6IjIwMTktMDctMDJUMTg6MzQ6NDMuMjA0WiIsImF1ZCI6InVybjpleGFtcGxlOmNsaWVudCIsImlzcyI6Imh0dHBzOi8vb3AuZXhhbXBsZS5jb20ifcEgHmn3JIHqfZgZC_jF-GT7QY-hoUnCbNPRP0Mnf_j_jjchA4OGkyv74sN1z7Yj6KQMe6sXly5jX6QHn0mD6As.eyJraWQiOiJmb28ifQ'
+
+decode(token)
+// {
+//   footer: <Buffer 7b 22 6b 69 64 22 3a 22 66 6f 6f 22 7d>,
+//   payload: {
+//     'urn:example:claim': 'foo',
+//     iat: '2019-07-02T16:34:43.204Z',
+//     exp: '2019-07-02T18:34:43.204Z',
+//     aud: 'urn:example:client',
+//     iss: 'https://op.example.com'
+//   },
+//   version: 'v2',
+//   purpose: 'public'
+// }
+```
+</details>
+
+---
+
 ## Errors
 
 <!-- TOC Errors START -->

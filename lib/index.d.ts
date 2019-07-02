@@ -35,10 +35,6 @@ interface completeResult {
     version: string
 }
 
-interface DecodeOptions<parse> {
-    parse?: parse
-}
-
 interface DecodeResult {
     footer: Buffer | undefined,
     payload: object | undefined,
