@@ -180,8 +180,8 @@ the KeyObject API that was added in Node.js v11.6.0 and one-shot sign/verify API
 [codecov-image]: https://img.shields.io/codecov/c/github/panva/paseto/master.svg
 [codecov-url]: https://codecov.io/gh/panva/paseto
 [documentation]: https://github.com/panva/paseto/blob/master/docs/README.md
-[documentation-v2]: https://github.com/panva/jose/blob/master/docs/README.md#v2-paseto-protocol-version-v2
-[documentation-v1]: https://github.com/panva/jose/blob/master/docs/README.md#v1-paseto-protocol-version-v1
+[documentation-v2]: https://github.com/panva/paseto/blob/master/docs/README.md#v2-paseto-protocol-version-v2
+[documentation-v1]: https://github.com/panva/paseto/blob/master/docs/README.md#v1-paseto-protocol-version-v1
 [security-vulnerability]: https://github.com/panva/paseto/issues/new?template=security-vulnerability.md
 [suggest-feature]: https://github.com/panva/paseto/issues/new?labels=enhancement&template=feature-request.md&title=proposal%3A+
 [support-patreon]: https://www.patreon.com/panva
