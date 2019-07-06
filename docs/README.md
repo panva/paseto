@@ -1,5 +1,7 @@
 # paseto API Documentation
 
+> [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with minimal dependencies
+
 **Table of Contents**
 
 - [V2 (PASETO Protocol Version v2)](#v2-paseto-protocol-version-v2)
