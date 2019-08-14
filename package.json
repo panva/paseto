@@ -6,6 +6,7 @@
     "paseto",
     "decode",
     "decrypt",
+    "electron",
     "encrypt",
     "sign",
     "verify",
@@ -39,13 +40,13 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.0.0",
-    "@commitlint/config-conventional": "^8.0.0",
-    "ava": "^2.1.0",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "ava": "^2.2.0",
     "babel-eslint": "^10.0.2",
     "c8": "^5.0.0",
-    "husky": "^3.0.0",
-    "standard": "^12.0.1"
+    "husky": "^3.0.3",
+    "standard": "^13.1.0"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -58,6 +59,6 @@
     ]
   },
   "dependencies": {
-    "libsodium-wrappers": "^0.7.4"
+    "libsodium-wrappers": "^0.7.5"
   }
 }
