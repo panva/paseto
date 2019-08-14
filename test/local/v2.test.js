@@ -49,7 +49,7 @@ test('not a v2.local paseto', async t => {
 test('invalid paseto', async t => {
   const key = await generateKey('local')
 
-  let token = `${await encrypt({}, key, { footer: 'foo' })}.foo`
+  const token = `${await encrypt({}, key, { footer: 'foo' })}.foo`
 
   await t.throwsAsync(() => decrypt(token, key), {
     message: 'token value is not a PASETO formatted value',
