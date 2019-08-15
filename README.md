@@ -1,6 +1,6 @@
 # paseto
 
-[![build][travis-image]][travis-url] [![codecov][codecov-image]][codecov-url]
+![build][actions-image] [![codecov][codecov-image]][codecov-url]
 
 > [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with minimal dependencies
 
@@ -186,5 +186,4 @@ the KeyObject API that was added in Node.js v11.6.0 and one-shot sign/verify API
 [suggest-feature]: https://github.com/panva/paseto/issues/new?labels=enhancement&template=feature-request.md&title=proposal%3A+
 [support-patreon]: https://www.patreon.com/panva
 [support-paypal]: https://www.paypal.me/panva
-[travis-image]: https://api.travis-ci.com/panva/paseto.svg?branch=master
-[travis-url]: https://travis-ci.com/panva/paseto
+[actions-image]: https://action-badges.now.sh/panva/paseto
