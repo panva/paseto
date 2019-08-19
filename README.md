@@ -1,6 +1,6 @@
 # paseto
 
-[![codecov][codecov-image]][codecov-url]
+![build][actions-image] [![codecov][codecov-image]][codecov-url]
 
 > [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with minimal dependencies
 
@@ -25,9 +25,7 @@ Found a vulnerability? - Reach out to us via email first, see [security vulnerab
 
 ## Support
 
-[<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160" align="right">][support-patreon]
-If you or your business use paseto, please consider becoming a [Patron][support-patreon] so I can continue maintaining it and adding new features carefree. You may also donate one-time via [PayPal][support-paypal].
-[<img src="https://cdn.jsdelivr.net/gh/gregoiresgt/payment-icons@183140a5ff8f39b5a19d59ebeb2c77f03c3a24d3/Assets/Payment/PayPal/Paypal@2x.png" width="100" align="right">][support-paypal]
+If you or your business use paseto, please consider becoming a [sponsor][support-sponsor] so I can continue maintaining it and adding new features carefree.
 
 ## Documentation
 
@@ -184,5 +182,5 @@ the KeyObject API that was added in Node.js v11.6.0 and one-shot sign/verify API
 [documentation-v1]: https://github.com/panva/paseto/blob/master/docs/README.md#v1-paseto-protocol-version-v1
 [security-vulnerability]: https://github.com/panva/paseto/issues/new?template=security-vulnerability.md
 [suggest-feature]: https://github.com/panva/paseto/issues/new?labels=enhancement&template=feature-request.md&title=proposal%3A+
-[support-patreon]: https://www.patreon.com/panva
-[support-paypal]: https://www.paypal.me/panva
+[support-sponsor]: https://github.com/users/panva/sponsorship
+[actions-image]: https://github.com/panva/paseto/workflows/Continuous%20Integration/badge.svg
