@@ -20,10 +20,10 @@
     "lib"
   ],
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
     "coverage": "c8 ava",
-    "lint": "standard",
+    "lint": "standard && dtslint types",
     "lint-fix": "standard --fix",
     "test": "ava",
     "watch": "ava --watch"
@@ -44,6 +44,7 @@
     "ava": "^2.4.0",
     "babel-eslint": "^10.0.3",
     "c8": "^5.0.4",
+    "dtslint": "^0.9.8",
     "husky": "^3.0.5",
     "standard": "^14.3.1"
   },
