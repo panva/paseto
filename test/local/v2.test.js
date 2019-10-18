@@ -67,7 +67,7 @@ test('invalid key length', async t => {
   const key = crypto.randomBytes(64)
 
   await t.throwsAsync(() => encrypt({}, key), {
-    message: 'v2.local secret key must be 256 bytes long symmetric key',
+    message: 'v2.local secret key must be 32 bytes long symmetric key',
     instanceOf: TypeError
   })
 })
@@ -77,7 +77,7 @@ test('invalid key type', async t => {
   privateKey.symmetricKeySize = 32
 
   await t.throwsAsync(() => encrypt({}, privateKey), {
-    message: 'v2.local secret key must be 256 bytes long symmetric key',
+    message: 'v2.local secret key must be 32 bytes long symmetric key',
     instanceOf: TypeError
   })
 })
