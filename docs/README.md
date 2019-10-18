@@ -649,5 +649,5 @@ if (err.code === 'ERR_PASETO_CLAIM_INVALID') {
 
 
 [spec-thumbprint]: https://tools.ietf.org/html/rfc7638
-[support-sponsor]: https://github.com/users/panva/sponsorship
+[support-sponsor]: https://github.com/sponsors/panva
 [bug]: https://github.com/panva/paseto/issues/new?labels=bug&template=bug-report.md&title=bug%3A+
