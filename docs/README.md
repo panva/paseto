@@ -117,7 +117,6 @@ Verifies the claims and signature of a PASETO
   - `issuer`: `<string>` Expected issuer value. An exact match must be found in the payload.
   - `maxTokenAge`: `<string>` When provided the payload is checked to have the "iat" claim and its
     value is validated not to be older than the provided timespan string e.g. `30m`, `24 hours`.
-    Do not confuse with maxAuthAge option.
   - `now`: `<Date>` Date object to be used instead of the current unix epoch timestamp.
     **Default:** 'new Date()'
   - `subject`: `<string>` Expected subject value. An exact match must be found in the payload.
@@ -230,7 +229,6 @@ Decrypts and validates the claims of a PASETO
   - `issuer`: `<string>` Expected issuer value. An exact match must be found in the payload.
   - `maxTokenAge`: `<string>` When provided the payload is checked to have the "iat" claim and its
     value is validated not to be older than the provided timespan string e.g. `30m`, `24 hours`.
-    Do not confuse with maxAuthAge option.
   - `now`: `<Date>` Date object to be used instead of the current unix epoch timestamp.
     **Default:** 'new Date()'
   - `subject`: `<string>` Expected subject value. An exact match must be found in the payload.
@@ -375,7 +373,6 @@ Verifies the claims and signature of a PASETO
   - `issuer`: `<string>` Expected issuer value. An exact match must be found in the payload.
   - `maxTokenAge`: `<string>` When provided the payload is checked to have the "iat" claim and its
     value is validated not to be older than the provided timespan string e.g. `30m`, `24 hours`.
-    Do not confuse with maxAuthAge option.
   - `now`: `<Date>` Date object to be used instead of the current unix epoch timestamp.
     **Default:** 'new Date()'
   - `subject`: `<string>` Expected subject value. An exact match must be found in the payload.
@@ -488,7 +485,6 @@ Decrypts and validates the claims of a PASETO
   - `issuer`: `<string>` Expected issuer value. An exact match must be found in the payload.
   - `maxTokenAge`: `<string>` When provided the payload is checked to have the "iat" claim and its
     value is validated not to be older than the provided timespan string e.g. `30m`, `24 hours`.
-    Do not confuse with maxAuthAge option.
   - `now`: `<Date>` Date object to be used instead of the current unix epoch timestamp.
     **Default:** 'new Date()'
   - `subject`: `<string>` Expected subject value. An exact match must be found in the payload.
