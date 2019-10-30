@@ -3,14 +3,14 @@
   "version": "1.0.3",
   "description": "PASETO for Node.js with minimal dependencies",
   "keywords": [
-    "paseto",
     "decode",
     "decrypt",
     "encrypt",
+    "paseto",
     "sign",
-    "verify",
     "v1",
-    "v2"
+    "v2",
+    "verify"
   ],
   "homepage": "https://github.com/panva/paseto",
   "repository": "panva/paseto",
@@ -39,16 +39,19 @@
       "@commitlint/config-conventional"
     ]
   },
+  "dependencies": {
+    "libsodium-wrappers": "^0.7.6"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "ava": "^2.4.0",
     "babel-eslint": "^10.0.3",
     "c8": "^6.0.1",
-    "dtslint": "^0.9.8",
-    "husky": "^3.0.5",
+    "dtslint": "^0.9.9",
+    "husky": "^3.0.9",
     "standard": "^14.3.1",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.4"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -59,8 +62,5 @@
     "files": [
       "test/**/*.test.js"
     ]
-  },
-  "dependencies": {
-    "libsodium-wrappers": "^0.7.5"
   }
 }
