@@ -5,11 +5,11 @@
 
 import { KeyObject, PrivateKeyInput, PublicKeyInput } from 'crypto';
 
-export interface ProduceOptions {
+export interface ProduceOptions<TFooter = object> {
     audience?: string;
     expiresIn?: string;
-    footer?: object | string | Buffer;
-    iat?: boolean;
+    footer?: TFooter | string | Buffer;
+    iat?: string;
     issuer?: string;
     jti?: string;
     kid?: string;
@@ -18,10 +18,10 @@ export interface ProduceOptions {
     subject?: string;
 }
 
-export interface ConsumeOptions<komplet> {
+export interface ConsumeOptions<TComplete> {
     audience?: string;
     clockTolerance?: string;
-    complete?: komplet;
+    complete?: TComplete;
     ignoreExp?: boolean;
     ignoreIat?: boolean;
     ignoreNbf?: boolean;
@@ -31,16 +31,16 @@ export interface ConsumeOptions<komplet> {
     subject?: string;
 }
 
-export interface completeResult {
+export interface CompleteResult<TPayload = object> {
     footer: Buffer | undefined;
-    payload: object;
+    payload: TPayload;
     purpose: string;
     version: string;
 }
 
-export interface DecodeResult {
+export interface DecodeResult<TPayload = object> {
     footer: Buffer | undefined;
-    payload: object | undefined;
+    payload: TPayload | undefined;
     purpose: string;
     version: string;
 }
@@ -52,10 +52,10 @@ export namespace V1 {
     function encrypt(payload: object, key: KeyObject | Buffer, options?: ProduceOptions): Promise<string>;
 
     function verify(token: string, key: KeyObject | PublicKeyInput, options?: ConsumeOptions<false>): Promise<object>;
-    function verify(token: string, key: KeyObject | PublicKeyInput, options?: ConsumeOptions<true>): Promise<completeResult>;
+    function verify(token: string, key: KeyObject | PublicKeyInput, options?: ConsumeOptions<true>): Promise<CompleteResult>;
 
     function decrypt(token: string, key: KeyObject | Buffer, options?: ConsumeOptions<false>): Promise<object>;
-    function decrypt(token: string, key: KeyObject | Buffer, options?: ConsumeOptions<true>): Promise<completeResult>;
+    function decrypt(token: string, key: KeyObject | Buffer, options?: ConsumeOptions<true>): Promise<CompleteResult>;
 
     function generateKey(purpose: 'local' | 'public'): Promise<KeyObject>;
 }
@@ -65,10 +65,10 @@ export namespace V2 {
     function encrypt(payload: object, key: KeyObject | Buffer, options?: ProduceOptions): Promise<string>;
 
     function verify(token: string, key: KeyObject | PublicKeyInput, options?: ConsumeOptions<false>): Promise<object>;
-    function verify(token: string, key: KeyObject | PublicKeyInput, options?: ConsumeOptions<true>): Promise<completeResult>;
+    function verify(token: string, key: KeyObject | PublicKeyInput, options?: ConsumeOptions<true>): Promise<CompleteResult>;
 
     function decrypt(token: string, key: KeyObject | Buffer, options?: ConsumeOptions<false>): Promise<object>;
-    function decrypt(token: string, key: KeyObject | Buffer, options?: ConsumeOptions<true>): Promise<completeResult>;
+    function decrypt(token: string, key: KeyObject | Buffer, options?: ConsumeOptions<true>): Promise<CompleteResult>;
 
     function generateKey(purpose: 'local' | 'public'): Promise<KeyObject>;
 }
