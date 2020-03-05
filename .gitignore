@@ -40,3 +40,6 @@ package-lock.json
 # TODOs
 TODO*.md
 .nvmrc
+
+# TS test
+types/*.js

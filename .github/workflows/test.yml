@@ -22,6 +22,7 @@ jobs:
           node-version: 12
       - run: npx panva/npm-install-retry
       - run: npm run lint
+      - run: npm run lint-ts
 
   test:
     runs-on: ${{ matrix.os }}

@@ -1,11 +1,6 @@
 /// <reference types="node" />
 // TypeScript Version: 3.6
 
-// The `@default` tag is not redundant here
-// tslint:disable:no-redundant-jsdoc
-// We need long lines for some jsdocs
-// tslint:disable:max-line-length
-
 import { KeyObject, PrivateKeyInput, PublicKeyInput } from 'crypto';
 
 export interface ProduceOptions {

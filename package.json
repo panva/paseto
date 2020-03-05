@@ -27,7 +27,8 @@
   "types": "types/index.d.ts",
   "scripts": {
     "coverage": "c8 ava",
-    "lint": "standard && dtslint types",
+    "lint": "standard",
+    "lint-ts": "npx typescript@~3.6.0 --build types",
     "lint-fix": "standard --fix",
     "test": "ava",
     "watch": "ava --watch"
@@ -46,13 +47,12 @@
     "libsodium-wrappers": "^0.7.6"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "ava": "^2.4.0",
     "babel-eslint": "^10.0.3",
-    "c8": "^7.0.0",
-    "dtslint": "^2.0.0",
-    "husky": "^3.0.9",
+    "c8": "^7.0.1",
+    "husky": "^3.1.0",
     "standard": "^14.3.1"
   },
   "engines": {
