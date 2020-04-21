@@ -14,13 +14,6 @@ main thread's I/O is not blocked.
 | -- | -- | -- | -- | -- |
 | supported? | ✓ | ✓ | ✓ | ✓ |
 
-<br>
-
-Have a question about using paseto? - [ask][ask].  
-Found a bug? - [report it][bug].  
-Missing a feature? - If it wasn't already discussed before, [ask for it][suggest-feature].  
-Found a vulnerability? - Reach out to us via email first, see [security vulnerability disclosure][security-vulnerability].  
-
 ## Support
 
 If you or your business use paseto, please consider becoming a [sponsor][support-sponsor] so I can continue maintaining it and adding new features carefree.
@@ -171,11 +164,7 @@ the KeyObject API that was added in Node.js v11.6.0 and one-shot sign/verify API
 `crypto` the direct dependency count will go down from 1 to 0. 🚀
 
 
-[ask]: https://github.com/panva/paseto/issues/new?labels=question&template=question.md&title=question%3A+
-[bug]: https://github.com/panva/paseto/issues/new?labels=bug&template=bug-report.md&title=bug%3A+
 [documentation]: https://github.com/panva/paseto/blob/master/docs/README.md
 [documentation-v2]: https://github.com/panva/paseto/blob/master/docs/README.md#v2-paseto-protocol-version-v2
 [documentation-v1]: https://github.com/panva/paseto/blob/master/docs/README.md#v1-paseto-protocol-version-v1
-[security-vulnerability]: https://github.com/panva/paseto/issues/new?template=security-vulnerability.md
-[suggest-feature]: https://github.com/panva/paseto/issues/new?labels=enhancement&template=feature-request.md&title=proposal%3A+
 [support-sponsor]: https://github.com/sponsors/panva
