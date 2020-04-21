@@ -31,13 +31,6 @@ test('decode must be a supported header', t => {
   )
 })
 
-test('when local must be a valid PASETO payload', t => {
-  t.throws(
-    () => decode('v2.public.foo='),
-    { instanceOf: errors.PasetoInvalid, code: 'ERR_PASETO_INVALID', message: 'token value is not a PASETO formatted value' }
-  )
-})
-
 test('parses the payload', t => {
   t.deepEqual(
     decode('v2.public.eyJpYXQiOiIyMDE5LTA3LTAyVDEyOjEwOjE1LjMxNloifWqI1SxVOBO_wrYAonuNSr84VxkOgMZf4Jn1mVUXsz9lEhxY7TdoIbgfToHIBtsrK5BUW5DD3t8ebyLz6z718gY.Zm9v'),

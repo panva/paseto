@@ -69,22 +69,6 @@ test('token must be a a valid paseto', async t => {
   )
 })
 
-test('token must be a a valid paseto (encoding payload)', async t => {
-  const k = await V2.generateKey('public')
-  return t.throwsAsync(
-    V2.verify('v2.public.=', k),
-    { instanceOf: errors.PasetoInvalid, code: 'ERR_PASETO_INVALID', message: 'token value is not a PASETO formatted value' }
-  )
-})
-
-test('token must be a a valid paseto (encoding footer)', async t => {
-  const k = await V2.generateKey('public')
-  return t.throwsAsync(
-    V2.verify('v2.public..=', k),
-    { instanceOf: errors.PasetoInvalid, code: 'ERR_PASETO_INVALID', message: 'token value is not a PASETO formatted value' }
-  )
-})
-
 test('invalid RSA key length for v1.public', async t => {
   const { privateKey } = await generateKeyPair('rsa', { modulusLength: 1024 })
   await t.throwsAsync(
