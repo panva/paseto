@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.6](https://github.com/panva/paseto/compare/v1.0.5...v1.0.6) (2020-04-21)
+
+
+### Performance Improvements
+
+* faster V1 encrypt/decrypt by grouping the crypto worker operations ([dbbdfa6](https://github.com/panva/paseto/commit/dbbdfa631a5afe1fa4790d681e382bb2ad44d46c))
+* removed regexp checking for base64url padding and charset ([f113782](https://github.com/panva/paseto/commit/f113782092d56cb122a94556e8b5214f3cc361b4))
+
+
+
 ## [1.0.5](https://github.com/panva/paseto/compare/v1.0.4...v1.0.5) (2019-12-26)
 
 
