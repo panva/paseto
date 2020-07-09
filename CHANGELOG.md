@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.7](https://github.com/panva/paseto/compare/v1.0.6...v1.0.7) (2020-07-09)
+
+
+### Performance Improvements
+
+* omit serializing KeyObjects when Node.js >= 14.5.0 is used ([3d5c148](https://github.com/panva/paseto/commit/3d5c1487df714a0bf62a4fc5f89d280a8c649f09))
+
+
+
 ## [1.0.6](https://github.com/panva/paseto/compare/v1.0.5...v1.0.6) (2020-04-21)
 
 
