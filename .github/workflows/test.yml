@@ -10,7 +10,7 @@ on:
       - '**.yml'
       - '**.md'
   schedule:
-    - cron:  0 9 * * 1-5
+    - cron:  0 12 * * 1-5
 
 jobs:
   lint:
