@@ -19,14 +19,14 @@ test('top level is not an object', t => {
   })
 })
 
-const payload = { data: 'this is a secret message rrrr', exp: '2019-01-01T00:00:00+00:00' };
+const payload = { data: 'this is a secret message rrrr', exp: '2019-01-01T00:00:00+00:00' }
 
 test('can parse Buffer', t => {
-  var obj = Buffer.from(JSON.stringify(payload));
-  t.deepEqual(parse(obj), payload);
+  var obj = Buffer.from(JSON.stringify(payload))
+  t.deepEqual(parse(obj), payload)
 })
 
 test('can parse Uint8Array', t => {
-  var obj = new Uint8Array(Buffer.from(JSON.stringify(payload)));
-  t.deepEqual(parse(obj), payload);
+  var obj = new Uint8Array(Buffer.from(JSON.stringify(payload)))
+  t.deepEqual(parse(obj), payload)
 })
