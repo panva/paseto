@@ -1,6 +1,6 @@
 {
   "name": "paseto",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "PASETO for Node.js with minimal dependencies",
   "keywords": [
     "decode",
