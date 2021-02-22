@@ -12,6 +12,15 @@ const { V1: { encrypt, decrypt, generateKey }, errors } = require('../../lib')
   })
 })
 
+;[Buffer.from('foo'), { kid: 'foo' }].forEach((payload) => {
+  test(`payload can be a ${Buffer.isBuffer(payload) ? 'Buffer' : typeof payload}`, async t => {
+    const key = await generateKey('local')
+    const paseto = await encrypt(payload, key)
+    ;({ payload } = await decrypt(paseto, key, { complete: true, buffer: true }))
+    t.true(Buffer.isBuffer(payload))
+  })
+})
+
 test('decryption failed', async t => {
   const [k1, k2] = await Promise.all([
     generateKey('local'),
@@ -84,34 +93,38 @@ test('invalid key type', async t => {
 
 test('invalid payload', async t => {
   const key = await generateKey('local')
+  await t.throwsAsync(() => encrypt(1, key), {
+    message: 'payload must be a Buffer or a plain object',
+    instanceOf: TypeError
+  })
   await t.throwsAsync(() => encrypt('foo', key), {
-    message: 'payload must be a plain object',
+    message: 'payload must be a Buffer or a plain object',
     instanceOf: TypeError
   })
   class Foo {}
   await t.throwsAsync(() => encrypt(new Foo(), key), {
-    message: 'payload must be a plain object',
+    message: 'payload must be a Buffer or a plain object',
     instanceOf: TypeError
   })
   await t.throwsAsync(() => encrypt([], key), {
-    message: 'payload must be a plain object',
+    message: 'payload must be a Buffer or a plain object',
     instanceOf: TypeError
   })
 })
 
 test('invalid footer', async t => {
   const key = await generateKey('local')
-  await t.throwsAsync(() => encrypt('foo', key), {
-    message: 'payload must be a plain object',
+  await t.throwsAsync(() => encrypt({}, key, { footer: 1 }), {
+    message: 'options.footer must be a string, Buffer, or a plain object',
     instanceOf: TypeError
   })
   class Foo {}
-  await t.throwsAsync(() => encrypt(new Foo(), key), {
-    message: 'payload must be a plain object',
+  await t.throwsAsync(() => encrypt({}, key, { footer: new Foo() }), {
+    message: 'options.footer must be a string, Buffer, or a plain object',
     instanceOf: TypeError
   })
-  await t.throwsAsync(() => encrypt([], key), {
-    message: 'payload must be a plain object',
+  await t.throwsAsync(() => encrypt({}, key, { footer: [] }), {
+    message: 'options.footer must be a string, Buffer, or a plain object',
     instanceOf: TypeError
   })
 })

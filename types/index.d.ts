@@ -55,6 +55,11 @@ export interface ConsumeOptions<TComplete extends boolean> {
      */
     complete?: TComplete;
     /**
+     * When false the parsed payload is returned, otherwise the raw payload (as a Buffer) will be returned
+     * @default false
+     */
+    buffer?: false;
+    /**
      * When true will not be validating the "exp" claim value to be in the future from now
      * @default false
      */
@@ -96,11 +101,46 @@ export interface CompleteResult {
     version: string;
 }
 
+export interface ConsumeOptionsBuffer<TComplete extends boolean> {
+    /**
+     * When false only the parsed payload is returned, otherwise an object with a parsed payload and footer (as a Buffer) will be returned
+     * @default false
+     */
+    complete?: TComplete;
+    /**
+     * When false the parsed payload is returned, otherwise the raw payload (as a Buffer) will be returned
+     * @default true
+     */
+    buffer: true;
+}
+
+export interface CompleteResultBuffer {
+    /** PASETO footer */
+    footer?: Buffer;
+    /** PASETO payload */
+    payload: Buffer;
+    /** PASETO purpose */
+    purpose: 'local' | 'public';
+    /** Protocol version */
+    version: string;
+}
+
 export interface DecodeResult {
     /** PASETO footer */
     footer?: Buffer;
     /** PASETO Payload claims */
     payload?: object;
+    /** PASETO purpose */
+    purpose: 'local' | 'public';
+    /** Protocol version */
+    version: string;
+}
+
+export interface DecodeResultBuffer {
+    /** PASETO footer */
+    footer?: Buffer;
+    /** PASETO payload */
+    payload?: Buffer;
     /** PASETO purpose */
     purpose: 'local' | 'public';
     /** Protocol version */
@@ -132,8 +172,8 @@ export namespace V1 {
      * })()
      */
     function sign(
-        /** PASETO Payload claims */
-        payload: object,
+        /** PASETO Payload claims or payload */
+        payload: object | Buffer,
         /** The key to sign with. Alternatively any input that works for `crypto.createPrivateKey` */
         key: KeyObject | PrivateKeyInput,
         options?: ProduceOptions,
@@ -160,8 +200,8 @@ export namespace V1 {
      * })()
      */
     function encrypt(
-        /** PASETO Payload claims */
-        payload: object,
+        /** PASETO Payload claims or payload */
+        payload: object | Buffer,
         /** The secret key to encrypt with. Alternatively any input that works for `crypto.createSecretKey` */
         key: KeyObject | Buffer,
         options?: ProduceOptions,
@@ -206,6 +246,20 @@ export namespace V1 {
         key: KeyObject | PublicKeyInput,
         options?: ConsumeOptions<true>,
     ): Promise<CompleteResult>;
+    function verify(
+        /** PASETO to verify */
+        token: string,
+        /** The key to verify with. Alternatively any input that works for `crypto.createPublicKey` */
+        key: KeyObject | PublicKeyInput,
+        options?: ConsumeOptionsBuffer<false>,
+    ): Promise<Buffer>;
+    function verify(
+        /** PASETO to verify */
+        token: string,
+        /** The key to verify with. Alternatively any input that works for `crypto.createPublicKey` */
+        key: KeyObject | PublicKeyInput,
+        options?: ConsumeOptionsBuffer<true>,
+    ): Promise<CompleteResultBuffer>;
 
     /**
      * Decrypts and validates the claims of a PASETO
@@ -246,6 +300,20 @@ export namespace V1 {
         key: KeyObject | Buffer,
         options?: ConsumeOptions<true>,
     ): Promise<CompleteResult>;
+    function decrypt(
+        /** PASETO to decrypt and validate */
+        token: string,
+        /** The secret key to decrypt with. Alternatively any input that works for `crypto.createSecretKey` */
+        key: KeyObject | Buffer,
+        options?: ConsumeOptionsBuffer<false>,
+    ): Promise<Buffer>;
+    function decrypt(
+        /** PASETO to decrypt and validate */
+        token: string,
+        /** The secret key to decrypt with. Alternatively any input that works for `crypto.createSecretKey` */
+        key: KeyObject | Buffer,
+        options?: ConsumeOptionsBuffer<true>,
+    ): Promise<CompleteResultBuffer>;
 
     /** Generates a new secret or private key for a given purpose */
     function generateKey(
@@ -277,8 +345,8 @@ export namespace V2 {
      * })()
      */
     function sign(
-        /** PASETO Payload claims */
-        payload: object,
+        /** PASETO Payload claims or payload */
+        payload: object | Buffer,
         /** The key to sign with. Alternatively any input that works for `crypto.createPrivateKey` */
         key: KeyObject | PrivateKeyInput,
         options?: ProduceOptions,
@@ -323,6 +391,20 @@ export namespace V2 {
         key: KeyObject | PublicKeyInput,
         options?: ConsumeOptions<true>,
     ): Promise<CompleteResult>;
+    function verify(
+        /** PASETO to verify */
+        token: string,
+        /** The key to verify with. Alternatively any input that works for `crypto.createPublicKey` */
+        key: KeyObject | PublicKeyInput,
+        options?: ConsumeOptionsBuffer<false>,
+    ): Promise<Buffer>;
+    function verify(
+        /** PASETO to verify */
+        token: string,
+        /** The key to verify with. Alternatively any input that works for `crypto.createPublicKey` */
+        key: KeyObject | PublicKeyInput,
+        options?: ConsumeOptionsBuffer<true>,
+    ): Promise<CompleteResultBuffer>;
 
     /** Generates a new secret or private key for a given purpose */
     function generateKey(
