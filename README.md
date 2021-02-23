@@ -26,8 +26,6 @@ If you or your business use paseto, please consider becoming a [sponsor][support
 
 ## Usage
 
-For its improvements in the crypto module ⚠️ the minimal Node.js version required is **v12.0.0** ⚠️
-
 Installing paseto
 
 ```console
@@ -138,8 +136,7 @@ private API and is subject to change between any versions.
 
 #### How do I use it outside of Node.js
 
-It is **only built for Node.js** environment - it builds on top of the `crypto` module and requires
-the KeyObject API that was added in Node.js v11.6.0 and one-shot sign/verify API added in v12.0.0
+It is **only built for Node.js** environment versions ^12.19.0 || >=14.15.0
 
 
 [documentation]: https://github.com/panva/paseto/blob/master/docs/README.md
