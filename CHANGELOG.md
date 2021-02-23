@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/panva/paseto/compare/v1.0.8...v2.0.0) (2021-02-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* removed v2.local encrypt, decrypt, and key generation
+* requires Node.js version ^12.19.0 || >=14.15.0
+
+### Features
+
+* removed the libsodium dependency ([0fe5de6](https://github.com/panva/paseto/commit/0fe5de69925ed2c98e1d6527da9a3ac961349145))
+
 ## [1.0.8](https://github.com/panva/paseto/compare/v1.0.7...v1.0.8) (2020-11-19)
 
 ## [1.0.7](https://github.com/panva/paseto/compare/v1.0.6...v1.0.7) (2020-07-09)
