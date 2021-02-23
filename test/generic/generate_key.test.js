@@ -17,10 +17,6 @@ test('V1 generateKey handles invalid purposes', async t => {
   )
 })
 
-test('V2 generateKey generates local', async t => {
-  await t.notThrowsAsync(V2.generateKey('local'))
-})
-
 test('V2 generateKey generates public', async t => {
   await t.notThrowsAsync(V2.generateKey('public'))
 })

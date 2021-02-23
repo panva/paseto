@@ -22,8 +22,6 @@ If you or your business use paseto, please consider becoming a [sponsor][support
 <!-- TOC V2 START -->
 - [V2.sign(payload, key[, options])](#v2signpayload-key-options)
 - [V2.verify(token, key[, options])](#v2verifytoken-key-options)
-- [V2.encrypt(payload, key[, options])](#v2encryptpayload-key-options)
-- [V2.decrypt(token, key[, options])](#v2decrypttoken-key-options)
 - [V2.generateKey(purpose)](#v2generatekeypurpose)
 <!-- TOC V2 END -->
 
@@ -33,8 +31,6 @@ const { V2 } = require('paseto')
 // {
 //   sign: [AsyncFunction: v2Sign],
 //   verify: [AsyncFunction: v2Verify],
-//   encrypt: [AsyncFunction: v2Encrypt],
-//   decrypt: [AsyncFunction: v2Decrypt],
 //   generateKey: [AsyncFunction: generateKey]
 // }
 ```
@@ -152,123 +148,11 @@ const token = 'v2.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6ImZvbyIsImlhdCI6IjIwMTktMDc
 
 ---
 
-#### V2.encrypt(payload, key[, options])
-
-Serializes and encrypts the payload as a PASETO using the provided secret key.
-
-- `payload`: `<Object>` PASETO Payload claims
-- `key`: `<KeyObject>` The secret key to encrypt with. Alternatively any input that works for `crypto.createSecretKey`
-- `options`: `<Object>`
-  - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
-    "aud" found in the payload
-  - `expiresIn`: `<string>` PASETO Expiration Time, "exp" claim value, specified as string which is
-    added to the current unix epoch timestamp e.g. `24 hours`, `20 m`, `60s`, etc., if provided it
-    will replace Expiration Time found in the payload
-  - `footer`: `<Object>` &vert; `<string>` &vert; `<Buffer>` PASETO footer
-  - `iat`: `<Boolean>` When true it pushes the "iat" to the PASETO payload. **Default:** 'true'
-  - `issuer`: `<string>` PASETO Issuer, "iss" claim value, if provided it will replace "iss" found in
-    the payload
-  - `jti`: `<string>` Token ID, "jti" claim value, if provided it will replace "jti" found in the
-    payload
-  - `kid`: `<string>` Key ID, "kid" claim value, if provided it will replace "kid" found in the
-    payload
-  - `notBefore`: `<string>` PASETO Not Before, "nbf" claim value, specified as string which is added to
-    the current unix epoch timestamp e.g. `24 hours`, `20 m`, `60s`, etc., if provided it will
-    replace Not Before found in the payload
-  - `now`: `<Date>` Date object to be used instead of the current unix epoch timestamp.
-    **Default:** 'new Date()'
-  - `subject`: `<string>` PASETO subject, "sub" claim value, if provided it will replace "sub" found in
-    the payload
-- Returns: `Promise<string>`
-
-<details>
-<summary><em><strong>Example</strong></em> (Click to expand)</summary>
-
-```js
-const { createSecretKey } = require('crypto')
-const { V2 } = require('paseto')
-
-const key = createSecretKey(secret)
-
-const payload = {
-  'urn:example:claim': 'foo'
-}
-
-(async () => {
-  const token = await V2.encrypt(payload, key, {
-    audience: 'urn:example:client',
-    issuer: 'https://op.example.com',
-    expiresIn: '2 hours'
-  })
-  // v2.local.qPegA36ANA_Q4GnR6BCBQqW2O6N3UVE0X0cJEzPHguKv8YeUlhMz7mRqp-LqCJ0hMDwsvoJ1xYrx2sT5yf_T-WiBj_gVddUyL4HEUPyYxWVWQtl8CZ-YTDsw1adQetScDvg91P-IK-1FlRfp2lZE8BOYnGgUKTjbtnpy3XOsgnqc4K4K0KDTURXQgs2-FDcfRm3bjxTlRoOnetNEyabmnB1od3wOesyrqNv7migvgq-nvxZi-7rv1qVATgXFyFQ
-})()
-```
-</details>
-
----
-
-#### V2.decrypt(token, key[, options])
-
-Decrypts and validates the claims of a PASETO
-
-- `token`: `<String>` PASETO to decrypt and validate
-- `key`: `<KeyObject>` The secret key to decrypt with. Alternatively any input that works for `crypto.createSecretKey`
-- `options`: `<Object>`
-  - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
-  - `clockTolerance`: `<string>` Clock Tolerance for comparing timestamps, provided as timespan
-    string e.g. `120s`, `2 minutes`, etc. **Default:** no clock tolerance
-  - `complete`: `<Boolean>` When false only the parsed payload is returned, otherwise an object with
-    a parsed payload and footer (as a Buffer) will be returned.
-    **Default:** 'false'
-  - `ignoreExp`: `<Boolean>` When true will not be validating the "exp" claim value to be in the
-    future from now. **Default:** 'false'
-  - `ignoreIat`: `<Boolean>` When true will not be validating the "iat" claim value to be in the
-    past from now. **Default:** 'false'
-  - `ignoreNbf`: `<Boolean>` When true will not be validating the "nbf" claim value to be in the
-    past from now. **Default:** 'false'
-  - `issuer`: `<string>` Expected issuer value. An exact match must be found in the payload.
-  - `maxTokenAge`: `<string>` When provided the payload is checked to have the "iat" claim and its
-    value is validated not to be older than the provided timespan string e.g. `30m`, `24 hours`.
-  - `now`: `<Date>` Date object to be used instead of the current unix epoch timestamp.
-    **Default:** 'new Date()'
-  - `subject`: `<string>` Expected subject value. An exact match must be found in the payload.
-- Returns: `Promise<Object>`
-
-<details>
-<summary><em><strong>Example</strong></em> (Click to expand)</summary>
-
-```js
-const { createSecretKey } = require('crypto')
-const { V2 } = require('paseto')
-
-const key = createSecretKey(secret)
-
-const token = 'v2.local.qPegA36ANA_Q4GnR6BCBQqW2O6N3UVE0X0cJEzPHguKv8YeUlhMz7mRqp-LqCJ0hMDwsvoJ1xYrx2sT5yf_T-WiBj_gVddUyL4HEUPyYxWVWQtl8CZ-YTDsw1adQetScDvg91P-IK-1FlRfp2lZE8BOYnGgUKTjbtnpy3XOsgnqc4K4K0KDTURXQgs2-FDcfRm3bjxTlRoOnetNEyabmnB1od3wOesyrqNv7migvgq-nvxZi-7rv1qVATgXFyFQ'
-
-(async () => {
-  await V2.decrypt(token, key, {
-    audience: 'urn:example:client',
-    issuer: 'https://op.example.com',
-    clockTolerance: '1 min'
-  })
-  // {
-  //   'urn:example:claim': 'foo',
-  //   iat: '2019-07-02T13:50:39.735Z',
-  //   exp: '2019-07-02T15:50:39.735Z',
-  //   aud: 'urn:example:client',
-  //   iss: 'https://op.example.com'
-  // }
-})()
-```
-</details>
-
----
-
 #### V2.generateKey(purpose)
 
 Generates a new secret or private key for a given purpose.
 
-- `purpose`: `<string>` PASETO purpose, either 'local' or 'public'
+- `purpose`: `<string>` PASETO purpose, only 'public' is supported.
 - Returns: `Promise<KeyObject>`
 
 ---
@@ -499,7 +383,7 @@ const { V1 } = require('paseto')
 
 const key = createSecretKey(secret)
 
-const token = 'v2.local.qPegA36ANA_Q4GnR6BCBQqW2O6N3UVE0X0cJEzPHguKv8YeUlhMz7mRqp-LqCJ0hMDwsvoJ1xYrx2sT5yf_T-WiBj_gVddUyL4HEUPyYxWVWQtl8CZ-YTDsw1adQetScDvg91P-IK-1FlRfp2lZE8BOYnGgUKTjbtnpy3XOsgnqc4K4K0KDTURXQgs2-FDcfRm3bjxTlRoOnetNEyabmnB1od3wOesyrqNv7migvgq-nvxZi-7rv1qVATgXFyFQ'
+const token = 'v1.local.1X8AshBYnBXTevpH6s21lTZzPL8k-pVaRBsfU5uFfpDWAoG8NZAB5LwQgUpcsgAbZj-wpDMix1Mzw_viBbntWjqEZAVOe-BTMhVKSe43u3fUM2EfRcNFHzPVY_2I_CqGjhW2qs6twNvgv5kEhOiUnTSgZMtCn9h6L_KlKz8YrWcGdGypBYcs5ooMClKvOhb2_M8wHqG_PCgAkgO5PBbHk1g6UnTgGgztuEMrcchLd7UJqNDU2I7TyQ9x7ofvndE35ODYaf-SefrJb72tuXaUqFbkAwKPs77EwvnWE5dgo6bbsp5KMdxq'
 
 (async () => {
   await V1.decrypt(token, key, {

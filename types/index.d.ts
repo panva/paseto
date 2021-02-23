@@ -215,7 +215,7 @@ export namespace V1 {
      *
      * const key = createSecretKey(secret)
      *
-     * const token = 'v2.local.qPegA36ANA_Q4GnR6BCBQqW2O6N3UVE0X0cJEzPHguKv8YeUlhMz7mRqp-LqCJ0hMDwsvoJ1xYrx2sT5yf_T-WiBj_gVddUyL4HEUPyYxWVWQtl8CZ-YTDsw1adQetScDvg91P-IK-1FlRfp2lZE8BOYnGgUKTjbtnpy3XOsgnqc4K4K0KDTURXQgs2-FDcfRm3bjxTlRoOnetNEyabmnB1od3wOesyrqNv7migvgq-nvxZi-7rv1qVATgXFyFQ'
+     * const token = 'v1.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6ImZvbyIsImlhdCI6IjIwMTktMDctMDJUMTQ6MDI6MjIuNDg5WiIsImV4cCI6IjIwMTktMDctMDJUMTY6MDI6MjIuNDg5WiIsImF1ZCI6InVybjpleGFtcGxlOmNsaWVudCIsImlzcyI6Imh0dHBzOi8vb3AuZXhhbXBsZS5jb20ifbCaLu19MdLxjrexKh4WTyKr6UoeXzDly_Po1ZNv4wD5CglfY84QqQYTGXLlcLAqZagM3cWJn6xge-lBlT63km6OtOsiWTaKOnYg4MBtQTKmLsjpehpPtDSl_39h2BenB-r911qjYwNNuaRukjrtSVKQtfxdoAoFKEz_eulsDTclEBV7bJrL9Bo0epkJhFShZ6-K8qNd6rTg6Q3YOZCheW1FqNjqfoUYJ9nqPZl2OVbcPdAW3HBeLJefmlL_QGVSRClE2MXOVDrcyf7vGZ0SIj3ylnr6jmEJpzG8o0ap7FblQZI3xp91e-gmw30o6njhSq1ZVWpLqp7FYzq0pknJzGE'
      *
      * (async () => {
      *   await V1.decrypt(token, key, {
@@ -283,34 +283,6 @@ export namespace V2 {
         key: KeyObject | PrivateKeyInput,
         options?: ProduceOptions,
     ): Promise<string>;
-    /**
-     * Serializes and encrypts the payload as a PASETO using the provided secret key
-     * @example
-     * const { createSecretKey } = require('crypto')
-     * const { V2 } = require('paseto')
-     *
-     * const key = createSecretKey(secret)
-     *
-     * const payload = {
-     *   'urn:example:claim': 'foo'
-     * }
-     *
-     * (async () => {
-     *   const token = await V2.encrypt(payload, key, {
-     *     audience: 'urn:example:client',
-     *     issuer: 'https://op.example.com',
-     *     expiresIn: '2 hours'
-     *   })
-     *   // v2.local.qPegA36ANA_Q4GnR6BCBQqW2O6N3UVE0X0cJEzPHguKv8YeUlhMz7mRqp-LqCJ0hMDwsvoJ1xYrx2sT5yf_T-WiBj_gVddUyL4HEUPyYxWVWQtl8CZ-YTDsw1adQetScDvg91P-IK-1FlRfp2lZE8BOYnGgUKTjbtnpy3XOsgnqc4K4K0KDTURXQgs2-FDcfRm3bjxTlRoOnetNEyabmnB1od3wOesyrqNv7migvgq-nvxZi-7rv1qVATgXFyFQ
-     * })()
-     */
-    function encrypt(
-        /** PASETO Payload claims */
-        payload: object,
-        /** The secret key to encrypt with. Alternatively any input that works for `crypto.createSecretKey` */
-        key: KeyObject | Buffer,
-        options?: ProduceOptions,
-    ): Promise<string>;
 
     /**
      * Verifies the claims and signature of a PASETO
@@ -352,50 +324,10 @@ export namespace V2 {
         options?: ConsumeOptions<true>,
     ): Promise<CompleteResult>;
 
-    /**
-     * Decrypts and validates the claims of a PASETO
-     * @example
-     * const { createSecretKey } = require('crypto')
-     * const { V2 } = require('paseto')
-     *
-     * const key = createSecretKey(secret)
-     *
-     * const token = 'v2.local.qPegA36ANA_Q4GnR6BCBQqW2O6N3UVE0X0cJEzPHguKv8YeUlhMz7mRqp-LqCJ0hMDwsvoJ1xYrx2sT5yf_T-WiBj_gVddUyL4HEUPyYxWVWQtl8CZ-YTDsw1adQetScDvg91P-IK-1FlRfp2lZE8BOYnGgUKTjbtnpy3XOsgnqc4K4K0KDTURXQgs2-FDcfRm3bjxTlRoOnetNEyabmnB1od3wOesyrqNv7migvgq-nvxZi-7rv1qVATgXFyFQ'
-     *
-     * (async () => {
-     *   await V2.decrypt(token, key, {
-     *     audience: 'urn:example:client',
-     *     issuer: 'https://op.example.com',
-     *     clockTolerance: '1 min'
-     *   })
-     *   // {
-     *   //   'urn:example:claim': 'foo',
-     *   //   iat: '2019-07-02T13:50:39.735Z',
-     *   //   exp: '2019-07-02T15:50:39.735Z',
-     *   //   aud: 'urn:example:client',
-     *   //   iss: 'https://op.example.com'
-     *   // }
-     * })()
-     */
-    function decrypt(
-        /** PASETO to decrypt and validate */
-        token: string,
-        /** The secret key to decrypt with. Alternatively any input that works for `crypto.createSecretKey` */
-        key: KeyObject | Buffer,
-        options?: ConsumeOptions<false>,
-    ): Promise<object>;
-    function decrypt(
-        /** PASETO to decrypt and validate */
-        token: string,
-        /** The secret key to decrypt with. Alternatively any input that works for `crypto.createSecretKey` */
-        key: KeyObject | Buffer,
-        options?: ConsumeOptions<true>,
-    ): Promise<CompleteResult>;
-
     /** Generates a new secret or private key for a given purpose */
     function generateKey(
         /** PASETO purpose */
-        purpose: 'local' | 'public',
+        purpose: 'public',
     ): Promise<KeyObject>;
 }
 

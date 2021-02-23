@@ -12,7 +12,7 @@ main thread's I/O is not blocked.
 
 |  | v1.local | v1.public | v2.local | v2.public |
 | -- | -- | -- | -- | -- |
-| supported? | ✓ | ✓ | ✓ | ✓ |
+| supported? | ✓ | ✓ | ✕ | ✓ |
 
 ## Support
 
@@ -45,7 +45,7 @@ const { decode } = paseto
 const { V1 } = paseto // { sign, verify, encrypt, decrypt, generateKey }
 
 // PASETO Protocol Version v2 specific API
-const { V2 } = paseto // { sign, verify, encrypt, decrypt, generateKey }
+const { V2 } = paseto // { sign, verify, generateKey }
 
 // errors utilized by paseto
 const { errors } = paseto
@@ -54,13 +54,9 @@ const { errors } = paseto
 #### Producing tokens
 
 ```js
-const { V2: { encrypt, sign } } = paseto
+const { V2: { sign } } = paseto
 
 (async () => {
-  {
-    const token = await encrypt({ sub: 'johndoe' }, secretKey)
-    // v2.local.rRfHP25HDj5Pda40FwdTsGcsEMoQAKM6ElH6OhCon6YzG1Pzmj1ZPAHORhPaxKQo0XLM5LPYgaevWGrkEy2Os3N68Xee_Me9A0LmbMlV6MNVt-UZMos7ETha
-  }
   {
     const token = await sign({ sub: 'johndoe' }, privateKey)
     // v2.public.eyJzdWIiOiJqb2huZG9lIiwiaWF0IjoiMjAxOS0wNy0wMVQxNToyMTozMS40OTJaIn0tpEwuwb-loL652KAZhmCYdDUNW8YbF6UYCFCYLk-fexhzs2ofL4AyHTqIk0HzIxawufEibT1ZyJ7MPBJUVpsF
@@ -71,13 +67,9 @@ const { V2: { encrypt, sign } } = paseto
 #### Consuming tokens
 
 ```js
-const { V2: { decrypt, verify } } = paseto
+const { V2: { verify } } = paseto
 
 (async () => {
-  {
-    const payload = await decrypt(token, secretKey)
-    // { sub: 'johndoe', iat: '2019-07-01T15:22:47.982Z' }
-  }
   {
     const payload = await verify(token, publicKey)
     // { sub: 'johndoe', iat: '2019-07-01T15:22:47.982Z' }
@@ -124,15 +116,6 @@ const { V1, V2 } = paseto
     // true
   }
   {
-    const key = await V2.generateKey('local')
-    console.log(key instanceof crypto.KeyObject)
-    // true
-    console.log(key.type === 'secret')
-    // true
-    console.log(key.symmetricKeySize === 32)
-    // true
-  }
-  {
     const key = await V2.generateKey('public')
     console.log(key instanceof crypto.KeyObject)
     // true
@@ -157,11 +140,6 @@ private API and is subject to change between any versions.
 
 It is **only built for Node.js** environment - it builds on top of the `crypto` module and requires
 the KeyObject API that was added in Node.js v11.6.0 and one-shot sign/verify API added in v12.0.0
-
-#### What is the ultimate goal?
-
-- **No dependencies**, the moment `XChaCha20-Poly1305` is supported by OpenSSL and therefore node's
-`crypto` the direct dependency count will go down from 1 to 0. 🚀
 
 
 [documentation]: https://github.com/panva/paseto/blob/master/docs/README.md

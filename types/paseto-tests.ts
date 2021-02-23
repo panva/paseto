@@ -45,50 +45,6 @@ import * as paseto from './index.d';
       subject: 'string',
     })
   }
-  {
-    const key = await paseto.V2.generateKey('local')
-
-    paseto.V2.encrypt({}, key)
-    paseto.V2.encrypt({}, key, { footer: 'foo' })
-    paseto.V2.encrypt({}, key, { footer: Buffer.from('foo') })
-    paseto.V2.encrypt({}, key, { footer: { foo: 'bar' } })
-
-    const token = await paseto.V2.encrypt({}, key, {
-      audience: 'string',
-      expiresIn: '2h',
-      iat: false,
-      issuer: 'string',
-      jti: 'string',
-      kid: 'string',
-      notBefore: 'string',
-      now: new Date(),
-      subject: 'string'
-    })
-    token.substring(0)
-
-    await paseto.V2.decrypt(token, key)
-    await paseto.V2.decrypt(token, key, { complete: false })
-
-    const a = await paseto.V2.decrypt(token, key, { complete: true })
-    if (a.footer) {
-      a.footer.byteLength
-    }
-    a.payload
-    a.purpose
-    a.version
-
-    await paseto.V2.decrypt(token, key, {
-      audience: 'string',
-      clockTolerance: '60s',
-      ignoreExp: true,
-      ignoreIat: true,
-      ignoreNbf: true,
-      issuer: 'string',
-      maxTokenAge: '5m',
-      now: new Date(),
-      subject: 'string',
-    })
-  }
 
   {
     const key = await paseto.V1.generateKey('public')
