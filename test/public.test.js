@@ -124,3 +124,43 @@ test('v1 doesnt validate v2', async t => {
     { instanceOf: errors.PasetoInvalid, code: 'ERR_PASETO_INVALID', message: 'token is not a v1.public token' }
   )
 })
+
+test('V1.validate needs a JSON payload', async t => {
+  const k = await V1.generateKey('public')
+
+  const token = await V1.sign(Buffer.from('test'), k)
+
+  return t.throwsAsync(
+    V1.verify(token, k),
+    { instanceOf: errors.PasetoInvalid, code: 'ERR_PASETO_INVALID', message: 'All PASETO payloads MUST be a JSON object' }
+  )
+})
+
+test('V2.validate needs a JSON payload', async t => {
+  const k = await V2.generateKey('public')
+
+  const token = await V2.sign(Buffer.from('test'), k)
+
+  return t.throwsAsync(
+    V2.verify(token, k),
+    { instanceOf: errors.PasetoInvalid, code: 'ERR_PASETO_INVALID', message: 'All PASETO payloads MUST be a JSON object' }
+  )
+})
+
+test('V1.sign can use Buffer as payload', async t => {
+  const k = await V1.generateKey('public')
+
+  const token = await V1.sign(Buffer.from('test'), k)
+
+  const payload = await V1.verify(token, k, { buffer: true })
+  t.true(Buffer.isBuffer(payload))
+})
+
+test('V2.sign can use Buffer as payload', async t => {
+  const k = await V2.generateKey('public')
+
+  const token = await V2.sign(Buffer.from('test'), k)
+
+  const payload = await V2.verify(token, k, { buffer: true })
+  t.true(Buffer.isBuffer(payload))
+})
