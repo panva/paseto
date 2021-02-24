@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/panva/paseto/compare/v2.0.0...v2.1.0) (2021-02-24)
+
+
+### Features
+
+* allow arbitrary payloads ([#15](https://github.com/panva/paseto/issues/15)) ([7869f25](https://github.com/panva/paseto/commit/7869f2516dc745228e9bfd7351f3df62710813b0)), closes [#14](https://github.com/panva/paseto/issues/14)
+
 ## [2.0.0](https://github.com/panva/paseto/compare/v1.0.8...v2.0.0) (2021-02-23)
 
 
