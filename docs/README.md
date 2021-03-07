@@ -1,6 +1,6 @@
 # paseto API Documentation
 
-> [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with minimal dependencies
+> [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with no dependencies.
 
 **Table of Contents**
 
