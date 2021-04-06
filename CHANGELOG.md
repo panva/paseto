@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.1](https://github.com/panva/paseto/compare/v2.1.0...v2.1.1) (2021-04-06)
+
+
+### Performance
+
+* improve base64url encoding when native is available ([385689e](https://github.com/panva/paseto/commit/385689ef54390e9f8cbb72af21cac6350e996f72))
+* use native sign/verify non-blocking callback when available ([995b278](https://github.com/panva/paseto/commit/995b2780556f4843c655117205d7454f9086eef4))
+
 ## [2.1.0](https://github.com/panva/paseto/compare/v2.0.0...v2.1.0) (2021-02-24)
 
 
