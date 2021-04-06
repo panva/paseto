@@ -46,10 +46,5 @@
     "files": [
       "test/**/*.test.js"
     ]
-  },
-  "standard-version": {
-    "scripts": {
-      "postchangelog": "sed -i '' -e 's/### \\[/## [/g' CHANGELOG.md"
-    }
   }
 }
