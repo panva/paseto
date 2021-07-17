@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.2](https://github.com/panva/paseto/compare/v2.1.1...v2.1.2) (2021-07-17)
+
+
+### Bug Fixes
+
+* defer decryption after tag verification passes ([a34d9df](https://github.com/panva/paseto/commit/a34d9df4f670c11d46c0fc3458f09f14bfd560e1))
+* return correct version from v1 verify with buffer and complete options ([00f0dd6](https://github.com/panva/paseto/commit/00f0dd6e526bda945934e4a00f2f586b57e12900))
+
 ## [2.1.1](https://github.com/panva/paseto/compare/v2.1.0...v2.1.1) (2021-04-06)
 
 
