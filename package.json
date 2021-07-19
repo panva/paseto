@@ -12,39 +12,39 @@
     "sign",
     "v1",
     "v2",
+    "v3",
+    "v4",
     "verify"
   ],
   "homepage": "https://github.com/panva/paseto",
   "repository": "panva/paseto",
+  "funding": "https://github.com/sponsors/panva",
   "license": "MIT",
   "author": "Filip Skokan <panva.ip@gmail.com>",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "files": [
     "lib",
     "types/index.d.ts"
   ],
-  "funding": "https://github.com/sponsors/panva",
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
   "scripts": {
     "coverage": "c8 ava",
-    "lint": "standard",
     "lint-ts": "npx typescript@~3.6.0 --build types",
-    "lint-fix": "standard --fix",
     "test": "ava",
     "watch": "ava --watch"
-  },
-  "devDependencies": {
-    "@types/node": "^14.14.31",
-    "ava": "^3.15.0",
-    "c8": "^7.6.0",
-    "standard": "^16.0.3"
-  },
-  "engines": {
-    "node": "^12.19.0 || >=14.15.0"
   },
   "ava": {
     "files": [
       "test/**/*.test.js"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.0",
+    "ava": "^3.15.0",
+    "c8": "^7.6.0",
+    "sinon": "^11.1.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
