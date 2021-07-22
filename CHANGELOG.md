@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.3](https://github.com/panva/paseto/compare/v2.1.2...v2.1.3) (2021-07-22)
+
+
+### Bug Fixes
+
+* return correct version from v1 decrypt with buffer and complete options ([eebab05](https://github.com/panva/paseto/commit/eebab0554797ab8e7c186bb595ce2e226b4d7374))
+* throw when options are provided while in raw buffer mode ([5434b46](https://github.com/panva/paseto/commit/5434b4671e50383c76fdbb0d8ffb52da40227d4c))
+
 ## [2.1.2](https://github.com/panva/paseto/compare/v2.1.1...v2.1.2) (2021-07-17)
 
 
