@@ -1,6 +1,5 @@
-import * as paseto from './index.d';
-
-(async () => {
+import * as paseto from './index.d'
+;(async () => {
   {
     const key = await paseto.V2.generateKey('public')
 
@@ -18,7 +17,7 @@ import * as paseto from './index.d';
       kid: 'string',
       notBefore: 'string',
       now: new Date(),
-      subject: 'string'
+      subject: 'string',
     })
     token.substring(0)
 
@@ -63,7 +62,7 @@ import * as paseto from './index.d';
       kid: 'string',
       notBefore: 'string',
       now: new Date(),
-      subject: 'string'
+      subject: 'string',
     })
     token.substring(0)
 
@@ -107,7 +106,7 @@ import * as paseto from './index.d';
       kid: 'string',
       notBefore: 'string',
       now: new Date(),
-      subject: 'string'
+      subject: 'string',
     })
     token.substring(0)
 

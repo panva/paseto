@@ -13,29 +13,14 @@ on:
     - cron:  0 12 * * 1-5
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npx panva/npm-install-retry
-      - run: npm run lint
-      - run: npm run lint-ts
-
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node-version:
-          - 12.19.0
-          - 12
-          - 14.15.0
-          - 14
-          - 15.0.1
-          - 15
-          - '>=15'
+          - 16.0.0
+          - 16
+          - '>=16'
         os:
           - ubuntu-latest
           - windows-latest
