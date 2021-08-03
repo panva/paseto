@@ -10,12 +10,12 @@ test('decode input must have 3 or 4 parts', (t) => {
   t.throws(() => decode('.'), {
     instanceOf: errors.PasetoInvalid,
     code: 'ERR_PASETO_INVALID',
-    message: 'token value is not a PASETO formatted value',
+    message: 'token is not a PASETO formatted value',
   })
   t.throws(() => decode('....'), {
     instanceOf: errors.PasetoInvalid,
     code: 'ERR_PASETO_INVALID',
-    message: 'token value is not a PASETO formatted value',
+    message: 'token is not a PASETO formatted value',
   })
 })
 

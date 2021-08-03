@@ -60,7 +60,7 @@ test('invalid paseto', async (t) => {
   const token = `${await encrypt({}, key, { footer: 'foo' })}.foo`
 
   await t.throwsAsync(() => decrypt(token, key), {
-    message: 'token value is not a PASETO formatted value',
+    message: 'token is not a PASETO formatted value',
     instanceOf: errors.PasetoInvalid,
     code: 'ERR_PASETO_INVALID',
   })

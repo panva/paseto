@@ -105,7 +105,7 @@ test('token must be a string', async (t) => {
   const k = await V2.generateKey('public')
   return t.throwsAsync(V2.verify(1, k), {
     instanceOf: TypeError,
-    message: 'token must be a string',
+    message: 'token must be a string, got: number',
   })
 })
 
@@ -114,7 +114,7 @@ test('token must be a a valid paseto', async (t) => {
   return t.throwsAsync(V2.verify('v2.public...', k), {
     instanceOf: errors.PasetoInvalid,
     code: 'ERR_PASETO_INVALID',
-    message: 'token value is not a PASETO formatted value',
+    message: 'token is not a PASETO formatted value',
   })
 })
 
