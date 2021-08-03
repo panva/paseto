@@ -1,9 +1,52 @@
 const crypto = require('crypto')
 
 const test = require('ava')
+const sinon = require('sinon').createSandbox()
 
 const { decode, V4 } = require('../../lib')
 const vectors = require('./v4.json')
+
+test.afterEach(() => sinon.restore())
+
+for (const vector of vectors.tests.filter(({ name }) => name.startsWith('4-E-'))) {
+  async function testLocal(t, vector, sk) {
+    sinon.stub(crypto, 'randomBytes').returns(Buffer.from(vector.nonce, 'hex'))
+    const token = vector.token
+    const footer = vector.footer || undefined
+    const expected = vector.payload
+    const assertion = vector['implicit-assertion']
+
+    t.deepEqual(decode(token), {
+      payload: undefined,
+      purpose: 'local',
+      version: 'v4',
+      footer: footer ? Buffer.from(footer) : undefined,
+    })
+    t.deepEqual(await V4.decrypt(token, sk, { ignoreExp: true, assertion }), expected)
+    t.deepEqual(await V4.encrypt(expected, sk, { footer, iat: false, assertion }), token)
+  }
+
+  test.serial(
+    `${vectors.name} - ${vector.name} (KeyObject)`,
+    testLocal,
+    vector,
+    crypto.createSecretKey(Buffer.from(vector.key, 'hex')),
+  )
+
+  test.serial(
+    `${vectors.name} - ${vector.name} (Buffer)`,
+    testLocal,
+    vector,
+    Buffer.from(vector.key, 'hex'),
+  )
+
+  test.serial(
+    `${vectors.name} - ${vector.name} (PASERK)`,
+    testLocal,
+    vector,
+    `k4.local.${Buffer.from(vector.key, 'hex').toString('base64url')}`,
+  )
+}
 
 for (const vector of vectors.tests.filter(({ name }) => name.startsWith('4-S-'))) {
   async function testPublic(t, vector, pk, sk) {

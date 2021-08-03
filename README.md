@@ -1,12 +1,12 @@
 # paseto
 
-> [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with no dependencies.
+> [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js.
 
 ## Implemented Protocol Versions
 
 |  | v1 | v2 | v3 | v4 | 
 | -- | -- | -- | -- | -- |
-| local | ✅ | ❌ | ✅ | ❌ |
+| local | ✅ | ✅ | ✅ | ✅ |
 | public | ✅ | ✅ | ✅ | ✅ |
 
 ## Support
@@ -40,13 +40,13 @@ const { decode } = paseto
 const { V1 } = paseto // { sign, verify, encrypt, decrypt, generateKey }
 
 // PASETO Protocol Version v2 specific API
-const { V2 } = paseto // { sign, verify, generateKey }
+const { V2 } = paseto // { sign, verify, encrypt, decrypt, generateKey }
 
 // PASETO Protocol Version v3 specific API
 const { V3 } = paseto // { sign, verify, encrypt, decrypt, generateKey }
 
 // PASETO Protocol Version v4 specific API
-const { V4 } = paseto // { sign, verify, generateKey }
+const { V4 } = paseto // { sign, verify, encrypt, decrypt, generateKey }
 
 // errors utilized by paseto
 const { errors } = paseto

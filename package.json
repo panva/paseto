@@ -1,7 +1,7 @@
 {
   "name": "paseto",
   "version": "3.1.0",
-  "description": "PASETO for Node.js with no dependencies",
+  "description": "PASETO for Node.js",
   "keywords": [
     "decode",
     "decrypt",
@@ -46,5 +46,10 @@
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@stablelib/blake2b": "^1.0.1",
+    "@stablelib/xchacha20": "^1.0.1",
+    "@stablelib/xchacha20poly1305": "^1.0.1"
   }
 }
