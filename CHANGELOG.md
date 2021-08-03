@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/panva/paseto/compare/v2.1.3...v3.0.0) (2021-08-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* Node.js runtime version v16.0.0 or greater is now required
+
+### Features
+
+* add v3.local, v3.public, and v4.public ([2139643](https://github.com/panva/paseto/commit/2139643b74ff602081c168f713c28f17ae58d9d7))
+
 ## [2.1.3](https://github.com/panva/paseto/compare/v2.1.2...v2.1.3) (2021-07-22)
 
 
