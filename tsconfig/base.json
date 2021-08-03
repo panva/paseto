@@ -1,0 +1,14 @@
+{
+  "files": [
+    "../src/index.ts"
+  ],
+  "compilerOptions": {
+    "lib": ["ES6", "DOM"],
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": false,
+    "removeComments": true
+  }
+}

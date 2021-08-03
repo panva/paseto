@@ -16,14 +16,26 @@ body:
     attributes:
       label: Version
       description: What exact version of the library do you use?
-      placeholder: e.g. v3.0.0
+      placeholder: e.g. v3.14.0
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Runtime
+      description: What javascript runtime are you seeing the problem on?
+      options:
+        - Browser
+        - Cloudflare Workers
+        - Deno
+        - Electron
+        - Node.js
+        - Other (I will specify below)
     validations:
       required: true
   - type: input
     attributes:
-      label: Node.js Version
-      description: What exact version of Node.js do you use?
-      placeholder: e.g. v16.4.0
+      label: Runtime Details
+      description: More information about the runtime (e.g. node version, browser vendor and version, electron version, operating system)
     validations:
       required: true
   - type: textarea

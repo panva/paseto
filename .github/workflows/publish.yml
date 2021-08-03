@@ -1,0 +1,50 @@
+name: NPM Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org
+          always-auth: true
+      - run: npm install --global npm@7
+      - name: Load cached dist
+        uses: actions/cache@v2
+        id: dist
+        with:
+          path: dist
+          key: dist-${{ hashFiles('src/**/*.ts') }}-${{ hashFiles('tsconfig/*.json') }}-${{ hashFiles('.github/workflows/*.yml') }}-${{ hashFiles('package.json') }}
+      - name: Prepare distribution
+        run: node tools/publish-universal
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  push:
+    needs:
+      - publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: git push origin $GITHUB_SHA:v1.x
+      - run: git rm -r dist/**/*
+      - run: |
+          git config --local user.email "panva.ip@gmail.com"
+          git config --local user.name "Filip Skokan"
+          git commit -m "chore: cleanup after publish"
+      - run: git push origin HEAD:main
