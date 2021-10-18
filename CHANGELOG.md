@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/panva/paseto/compare/v3.0.1...v3.1.0) (2021-10-18)
+
+
+### Features
+
+* support PASERK in key generation ([bffbda4](https://github.com/panva/paseto/commit/bffbda4591ade9e1813c10f5279771c5e611ae81)), closes [#25](https://github.com/panva/paseto/issues/25)
+* support PASERK Type secret, local, public keys ([f41bfc3](https://github.com/panva/paseto/commit/f41bfc3835082a7802dde3ec6f1d64190309e213)), closes [#25](https://github.com/panva/paseto/issues/25)
+
 ## [3.0.1](https://github.com/panva/paseto/compare/v3.0.0...v3.0.1) (2021-08-04)
 
 ## [3.0.0](https://github.com/panva/paseto/compare/v2.1.3...v3.0.0) (2021-08-03)
