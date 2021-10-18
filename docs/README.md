@@ -47,8 +47,8 @@ const { V4 } = require('paseto')
 Serializes and signs the payload as a PASETO using the provided private key.
 
 - `payload`: `<Object>` PASETO Payload claims
-- `key`: `<KeyObject>` The key to sign with. Alternatively any input that works for `crypto.createPrivateKey()`
-  or `V4.bytesToKeyObject()`.
+- `key`: `<KeyObject>` The key to sign with. Alternatively a `'k4.secret.[data]'` 
+  PASERK string, any input that works for `crypto.createPrivateKey()`, or `V4.bytesToKeyObject()`.
 - `options`: `<Object>`
   - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
     "aud" found in the payload
@@ -103,8 +103,8 @@ const payload = {
 Verifies the claims and signature of a PASETO
 
 - `token`: `<String>` PASETO to verify
-- `key`: `<KeyObject>` The key to verify with. Alternatively any input that works for `crypto.createPublicKey()`
-  or `V4.bytesToKeyObject()`.
+- `key`: `<KeyObject>` The key to verify with. Alternatively a `'k4.public.[data]'` 
+  PASERK string, any input that works for `crypto.createPublicKey()` or `V4.bytesToKeyObject()`.
 - `options`: `<Object>`
   - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
   - `clockTolerance`: `<string>` Clock Tolerance for comparing timestamps, provided as timespan
@@ -232,8 +232,8 @@ const { V3 } = require('paseto')
 Serializes and signs the payload as a PASETO using the provided private key.
 
 - `payload`: `<Object>` PASETO Payload claims
-- `key`: `<KeyObject>` The key to sign with. Alternatively any input that works for `crypto.createPrivateKey()`
-  or `V3.bytesToKeyObject()`.
+- `key`: `<KeyObject>` The key to sign with. Alternatively a `'k3.secret.[data]'` 
+  PASERK string, any input that works for `crypto.createPrivateKey()`, or `V3.bytesToKeyObject()`.
 - `options`: `<Object>`
   - `assertion`: `<string>` &vert; `<Buffer>` PASETO Implicit Assertion
   - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
@@ -289,8 +289,8 @@ const payload = {
 Verifies the claims and signature of a PASETO
 
 - `token`: `<String>` PASETO to verify
-- `key`: `<KeyObject>` The key to verify with. Alternatively any input that works for `crypto.createPublicKey()`
-  or `V3.bytesToKeyObject()`.
+- `key`: `<KeyObject>` The key to verify with. Alternatively a `'k3.public.[data]'` 
+  PASERK string, any input that works for `crypto.createPublicKey()` or `V3.bytesToKeyObject()`.
 - `options`: `<Object>`
   - `assertion`: `<string>` &vert; `<Buffer>` PASETO Implicit Assertion
   - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
@@ -348,7 +348,8 @@ const token = 'v3.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6ImZvbyIsImlhdCI6IjIwMjEtMDc
 Serializes and encrypts the payload as a PASETO using the provided secret key.
 
 - `payload`: `<Object>` PASETO Payload claims
-- `key`: `<KeyObject>` The secret key to encrypt with. Alternatively any input that works for `crypto.createSecretKey`
+- `key`: `<KeyObject>` The secret key to encrypt with. Alternatively a `'k3.local.[data]'` 
+  PASERK string or any input that works for `crypto.createSecretKey()`.
 - `options`: `<Object>`
   - `assertion`: `<string>` &vert; `<Buffer>` PASETO Implicit Assertion
   - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
@@ -404,7 +405,8 @@ const payload = {
 Decrypts and validates the claims of a PASETO
 
 - `token`: `<String>` PASETO to decrypt and validate
-- `key`: `<KeyObject>` The secret key to decrypt with. Alternatively any input that works for `crypto.createSecretKey`
+- `key`: `<KeyObject>` The secret key to decrypt with. Alternatively a `'k3.local.[data]'` 
+  PASERK string or any input that works for `crypto.createSecretKey()`.
 - `options`: `<Object>`
   - `assertion`: `<string>` &vert; `<Buffer>` PASETO Implicit Assertion
   - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
@@ -529,8 +531,8 @@ const { V2 } = require('paseto')
 Serializes and signs the payload as a PASETO using the provided private key.
 
 - `payload`: `<Object>` PASETO Payload claims
-- `key`: `<KeyObject>` The key to sign with. Alternatively any input that works for `crypto.createPrivateKey()`
-  or `V2.bytesToKeyObject()`.
+- `key`: `<KeyObject>` The key to sign with. Alternatively a `'k2.secret.[data]'` 
+  PASERK string, any input that works for `crypto.createPrivateKey()`, or `V2.bytesToKeyObject()`.
 - `options`: `<Object>`
   - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
     "aud" found in the payload
@@ -585,8 +587,8 @@ const payload = {
 Verifies the claims and signature of a PASETO
 
 - `token`: `<String>` PASETO to verify
-- `key`: `<KeyObject>` The key to verify with. Alternatively any input that works for `crypto.createPublicKey()`
-  or `V2.bytesToKeyObject()`.
+- `key`: `<KeyObject>` The key to verify with. Alternatively a `'k2.public.[data]'` 
+  PASERK string, any input that works for `crypto.createPublicKey()` or `V2.bytesToKeyObject()`.
 - `options`: `<Object>`
   - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
   - `clockTolerance`: `<string>` Clock Tolerance for comparing timestamps, provided as timespan
@@ -710,7 +712,8 @@ const { V1 } = require('paseto')
 Serializes and signs the payload as a PASETO using the provided private key.
 
 - `payload`: `<Object>` PASETO Payload claims
-- `key`: `<KeyObject>` The key to sign with. Alternatively any input that works for `crypto.createPrivateKey`
+- `key`: `<KeyObject>` The key to sign with. Alternatively a `'k1.secret.[data]'` 
+  PASERK string or any input that works for `crypto.createPrivateKey()`.
 - `options`: `<Object>`
   - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
     "aud" found in the payload
@@ -765,7 +768,8 @@ const payload = {
 Verifies the claims and signature of a PASETO
 
 - `token`: `<String>` PASETO to verify
-- `key`: `<KeyObject>` The key to verify with. Alternatively any input that works for `crypto.createPublicKey`.
+- `key`: `<KeyObject>` The key to verify with. Alternatively a `'k1.public.[data]'` 
+  PASERK string or any input that works for `crypto.createPublicKey()`.
 - `options`: `<Object>`
   - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
   - `clockTolerance`: `<string>` Clock Tolerance for comparing timestamps, provided as timespan
@@ -822,7 +826,8 @@ const token = 'v1.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6ImZvbyIsImlhdCI6IjIwMTktMDc
 Serializes and encrypts the payload as a PASETO using the provided secret key.
 
 - `payload`: `<Object>` PASETO Payload claims
-- `key`: `<KeyObject>` The secret key to encrypt with. Alternatively any input that works for `crypto.createSecretKey`
+- `key`: `<KeyObject>` The secret key to encrypt with. Alternatively a `'k1.local.[data]'` 
+  PASERK string or any input that works for `crypto.createSecretKey()`.
 - `options`: `<Object>`
   - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
     "aud" found in the payload
@@ -877,7 +882,8 @@ const payload = {
 Decrypts and validates the claims of a PASETO
 
 - `token`: `<String>` PASETO to decrypt and validate
-- `key`: `<KeyObject>` The secret key to decrypt with. Alternatively any input that works for `crypto.createSecretKey`
+- `key`: `<KeyObject>` The secret key to decrypt with. Alternatively a `'k1.local.[data]'` 
+  PASERK string or any input that works for `crypto.createSecretKey()`.
 - `options`: `<Object>`
   - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
   - `clockTolerance`: `<string>` Clock Tolerance for comparing timestamps, provided as timespan

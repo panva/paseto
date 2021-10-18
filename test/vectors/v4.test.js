@@ -19,7 +19,6 @@ for (const vector of vectors.tests.filter(({ name }) => name.startsWith('4-S-'))
       footer: footer ? Buffer.from(footer) : undefined,
     })
     t.deepEqual(await V4.verify(token, pk, { ignoreExp: true, assertion }), expected)
-    t.deepEqual(await V4.verify(token, sk, { ignoreExp: true, assertion }), expected)
     t.deepEqual(await V4.sign(expected, sk, { footer, iat: false, assertion }), token)
   }
 
@@ -29,6 +28,14 @@ for (const vector of vectors.tests.filter(({ name }) => name.startsWith('4-S-'))
     vector,
     V4.bytesToKeyObject(Buffer.from(vector['public-key'], 'hex')),
     V4.bytesToKeyObject(Buffer.from(vector['secret-key'], 'hex')),
+  )
+
+  test(
+    `${vectors.name} - ${vector.name} (PASERK)`,
+    testPublic,
+    vector,
+    `k4.public.${Buffer.from(vector['public-key'], 'hex').toString('base64url')}`,
+    `k4.secret.${Buffer.from(vector['secret-key'], 'hex').toString('base64url')}`,
   )
 
   test(

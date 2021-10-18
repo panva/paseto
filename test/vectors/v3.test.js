@@ -9,8 +9,7 @@ const vectors = require('./v3.json')
 test.afterEach(() => sinon.restore())
 
 for (const vector of vectors.tests.filter(({ name }) => name.startsWith('3-E-'))) {
-  test.serial(`${vectors.name} - ${vector.name}`, async (t) => {
-    const sk = crypto.createSecretKey(Buffer.from(vector.key, 'hex'))
+  async function testLocal(t, vector, sk) {
     sinon.stub(crypto, 'randomBytes').returns(Buffer.from(vector.nonce, 'hex'))
     const token = vector.token
     const footer = vector.footer || undefined
@@ -25,7 +24,28 @@ for (const vector of vectors.tests.filter(({ name }) => name.startsWith('3-E-'))
     })
     t.deepEqual(await V3.decrypt(token, sk, { ignoreExp: true, assertion }), expected)
     t.deepEqual(await V3.encrypt(expected, sk, { footer, iat: false, assertion }), token)
-  })
+  }
+
+  test.serial(
+    `${vectors.name} - ${vector.name} (KeyObject)`,
+    testLocal,
+    vector,
+    crypto.createSecretKey(Buffer.from(vector.key, 'hex')),
+  )
+
+  test.serial(
+    `${vectors.name} - ${vector.name} (Buffer)`,
+    testLocal,
+    vector,
+    Buffer.from(vector.key, 'hex'),
+  )
+
+  test.serial(
+    `${vectors.name} - ${vector.name} (PASERK)`,
+    testLocal,
+    vector,
+    `k3.local.${Buffer.from(vector.key, 'hex').toString('base64url')}`,
+  )
 }
 
 for (const vector of vectors.tests.filter(({ name }) => name.startsWith('3-S-'))) {
@@ -44,7 +64,6 @@ for (const vector of vectors.tests.filter(({ name }) => name.startsWith('3-S-'))
       footer: footer ? Buffer.from(footer) : undefined,
     })
     t.deepEqual(await V3.verify(token, pk, { ignoreExp: true, assertion }), expected)
-    t.deepEqual(await V3.verify(token, sk, { ignoreExp: true, assertion }), expected)
   }
 
   test(
@@ -53,6 +72,14 @@ for (const vector of vectors.tests.filter(({ name }) => name.startsWith('3-S-'))
     vector,
     V3.bytesToKeyObject(Buffer.from(vector['public-key'], 'hex')),
     V3.bytesToKeyObject(Buffer.from(vector['secret-key'], 'hex')),
+  )
+
+  test(
+    `${vectors.name} - ${vector.name} (PASERK)`,
+    testPublic,
+    vector,
+    `k3.public.${Buffer.from(vector['public-key'], 'hex').toString('base64url')}`,
+    `k3.secret.${Buffer.from(vector['secret-key'], 'hex').toString('base64url')}`,
   )
 
   test(

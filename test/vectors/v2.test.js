@@ -18,7 +18,6 @@ for (const vector of vectors.tests.filter(({ name }) => name.startsWith('2-S-'))
       footer: footer ? Buffer.from(footer) : undefined,
     })
     t.deepEqual(await V2.verify(token, pk, { ignoreExp: true }), expected)
-    t.deepEqual(await V2.verify(token, sk, { ignoreExp: true }), expected)
     t.deepEqual(await V2.sign(expected, sk, { footer, iat: false }), token)
   }
 
@@ -28,6 +27,14 @@ for (const vector of vectors.tests.filter(({ name }) => name.startsWith('2-S-'))
     vector,
     V2.bytesToKeyObject(Buffer.from(vector['public-key'], 'hex')),
     V2.bytesToKeyObject(Buffer.from(vector['secret-key'], 'hex')),
+  )
+
+  test(
+    `${vectors.name} - ${vector.name} (PASERK)`,
+    testPublic,
+    vector,
+    `k2.public.${Buffer.from(vector['public-key'], 'hex').toString('base64url')}`,
+    `k2.secret.${Buffer.from(vector['secret-key'], 'hex').toString('base64url')}`,
   )
 
   test(
