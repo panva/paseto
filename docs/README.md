@@ -24,7 +24,7 @@ If you or your business use paseto, please consider becoming a [sponsor][support
 <!-- TOC V4 START -->
 - [V4.sign(payload, key[, options])](#v4signpayload-key-options)
 - [V4.verify(token, key[, options])](#v4verifytoken-key-options)
-- [V4.generateKey(purpose)](#v4generatekeypurpose)
+- [V4.generateKey(purpose[, options])](#v4generatekeypurpose-options)
 - [V4.bytesToKeyObject(bytes)](#v4bytestokeyobjectbytes)
 - [V4.keyObjectToBytes(keyObject)](#v4keyobjecttobyteskeyobject)
 <!-- TOC V4 END -->
@@ -156,12 +156,15 @@ const token = 'v4.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6ImZvbyIsImlhdCI6IjIwMjEtMDc
 
 ---
 
-#### V4.generateKey(purpose)
+#### V4.generateKey(purpose[, options])
 
 Generates a new secret or private key for a given purpose.
 
 - `purpose`: `<string>` PASETO purpose, only 'public' is supported.
-- Returns: `Promise<KeyObject>`
+- `options`: `<Object>`
+  - `format`: `'keyobject'` (default) &vert; `'paserk'`.
+- Returns: `Promise<KeyObject>` (when format is `'keyobject'`)
+- Returns: `Promise<{ publicKey: string, secretKey: string }>` (when format is `'paserk'`)
 
 ---
 
@@ -207,7 +210,7 @@ Use `crypto.createPublicKey(keyObject)` to turn a private KeyObject to a public 
 - [V3.verify(token, key[, options])](#v3verifytoken-key-options)
 - [V3.encrypt(payload, key[, options])](#v3encryptpayload-key-options)
 - [V3.decrypt(token, key[, options])](#v3decrypttoken-key-options)
-- [V3.generateKey(purpose)](#v3generatekeypurpose)
+- [V3.generateKey(purpose[, options])](#v3generatekeypurpose-options)
 - [V3.bytesToKeyObject(bytes)](#v3bytestokeyobjectbytes)
 - [V3.keyObjectToBytes(keyObject)](#v3keyobjecttobyteskeyobject)
 <!-- TOC V3 END -->
@@ -459,12 +462,16 @@ const token = 'v3.local.aY9txiwDEjnQpCUe2muaPlFSEHH7OTYcjv4GTEyiFvecI7Y4-0_msLxp
 
 ---
 
-#### V3.generateKey(purpose)
+#### V3.generateKey(purpose[, options])
 
 Generates a new secret or private key for a given purpose.
 
 - `purpose`: `<string>` PASETO purpose, either 'local' or 'public'
-- Returns: `Promise<KeyObject>`
+- `options`: `<Object>`
+  - `format`: `'keyobject'` (default) &vert; `'paserk'`.
+- Returns: `Promise<KeyObject>` (when format is `'keyobject'`)
+- Returns: `Promise<{ publicKey: string, secretKey: string }>` (when format is `'paserk'` and purpose is `'public'`)
+- Returns: `Promise<{ string }>` (when format is `'paserk'` and purpose is `'local'`)
 
 ---
 
@@ -508,7 +515,7 @@ Use `crypto.createPublicKey(keyObject)` to turn a private KeyObject to a public 
 <!-- TOC V2 START -->
 - [V2.sign(payload, key[, options])](#v2signpayload-key-options)
 - [V2.verify(token, key[, options])](#v2verifytoken-key-options)
-- [V2.generateKey(purpose)](#v2generatekeypurpose)
+- [V2.generateKey(purpose[, options])](#v2generatekeypurpose-options)
 - [V2.bytesToKeyObject(bytes)](#v2bytestokeyobjectbytes)
 - [V2.keyObjectToBytes(keyObject)](#v2keyobjecttobyteskeyobject)
 <!-- TOC V2 END -->
@@ -640,12 +647,15 @@ const token = 'v2.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6ImZvbyIsImlhdCI6IjIwMTktMDc
 
 ---
 
-#### V2.generateKey(purpose)
+#### V2.generateKey(purpose[, options])
 
 Generates a new secret or private key for a given purpose.
 
 - `purpose`: `<string>` PASETO purpose, only 'public' is supported.
-- Returns: `Promise<KeyObject>`
+- `options`: `<Object>`
+  - `format`: `'keyobject'` (default) &vert; `'paserk'`.
+- Returns: `Promise<KeyObject>` (when format is `'keyobject'`)
+- Returns: `Promise<{ publicKey: string, secretKey: string }>` (when format is `'paserk'`)
 
 ---
 
@@ -691,7 +701,7 @@ Use `crypto.createPublicKey(keyObject)` to turn a private KeyObject to a public 
 - [V1.verify(token, key[, options])](#v1verifytoken-key-options)
 - [V1.encrypt(payload, key[, options])](#v1encryptpayload-key-options)
 - [V1.decrypt(token, key[, options])](#v1decrypttoken-key-options)
-- [V1.generateKey(purpose)](#v1generatekeypurpose)
+- [V1.generateKey(purpose[, options])](#v1generatekeypurpose-options)
 <!-- TOC V1 END -->
 
 
@@ -935,12 +945,16 @@ const token = 'v1.local.1X8AshBYnBXTevpH6s21lTZzPL8k-pVaRBsfU5uFfpDWAoG8NZAB5LwQ
 
 ---
 
-#### V1.generateKey(purpose)
+#### V1.generateKey(purpose[, options])
 
 Generates a new secret or private key for a given purpose.
 
 - `purpose`: `<string>` PASETO purpose, either 'local' or 'public'
-- Returns: `Promise<KeyObject>`
+- `options`: `<Object>`
+  - `format`: `'keyobject'` (default) &vert; `'paserk'`.
+- Returns: `Promise<KeyObject>` (when format is `'keyobject'`)
+- Returns: `Promise<{ publicKey: string, secretKey: string }>` (when format is `'paserk'` and purpose is `'public'`)
+- Returns: `Promise<{ string }>` (when format is `'paserk'` and purpose is `'local'`)
 
 ---
 
