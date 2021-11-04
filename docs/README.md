@@ -471,7 +471,7 @@ Generates a new secret or private key for a given purpose.
   - `format`: `'keyobject'` (default) &vert; `'paserk'`.
 - Returns: `Promise<KeyObject>` (when format is `'keyobject'`)
 - Returns: `Promise<{ publicKey: string, secretKey: string }>` (when format is `'paserk'` and purpose is `'public'`)
-- Returns: `Promise<{ string }>` (when format is `'paserk'` and purpose is `'local'`)
+- Returns: `Promise<string>` (when format is `'paserk'` and purpose is `'local'`)
 
 ---
 
@@ -954,7 +954,7 @@ Generates a new secret or private key for a given purpose.
   - `format`: `'keyobject'` (default) &vert; `'paserk'`.
 - Returns: `Promise<KeyObject>` (when format is `'keyobject'`)
 - Returns: `Promise<{ publicKey: string, secretKey: string }>` (when format is `'paserk'` and purpose is `'public'`)
-- Returns: `Promise<{ string }>` (when format is `'paserk'` and purpose is `'local'`)
+- Returns: `Promise<string>` (when format is `'paserk'` and purpose is `'local'`)
 
 ---
 
