@@ -1,6 +1,6 @@
 # paseto
 
-> [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js no dependencies.
+> [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with no dependencies.
 
 ## Implemented Protocol Versions
 
