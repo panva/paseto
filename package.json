@@ -64,24 +64,22 @@
     "build:node-cjs": "run-s runtime-node 'build -- -p ./tsconfig/node-cjs.json'",
     "build:node-esm": "run-s runtime-node 'build -- -p ./tsconfig/node-esm.json' && echo '{\"type\": \"module\"}'> dist/node/esm/package.json",
     "clear": "rm -rf dist",
-    "runtime-web": "run-s runtime:clear runtime:web:*",
+    "docs": "run-s docs:*",
+    "docs:generate": "typedoc --allReflectionsHaveOwnDocument --disableSources --excludePrivate --excludeProtected --gitRevision main --readme none --plugin typedoc-plugin-markdown --out docs --excludeExternals --tsconfig ./tsconfig/web.json  --hideGenerator --hideBreadcrumbs src/index.ts",
+    "runtime-web": "run-s runtime:clear runtime:web:* runtime:refs",
     "runtime-deno": "npm run-script runtime-web && mkdir -p dist/deno && cp -r src/. dist/deno && rm -r dist/deno/runtime/web dist/deno/runtime/node",
-    "runtime-node": "run-s runtime:clear runtime:node:*",
+    "runtime-node": "run-s runtime:clear runtime:node:* runtime:refs",
     "runtime:web:copy": "cp ./src/runtime/web/*.ts ./src/runtime",
     "runtime:clear": "run-s -s runtime:find | xargs -0 rm -f",
     "runtime:find": "find src/runtime -not -name '*.d.ts' -maxdepth 1 -type f -print0",
     "types:find": "find dist/types -name '*.d.ts' -type f -print0",
     "runtime:node:copy": "cp ./src/runtime/node/*.ts ./src/runtime",
+    "runtime:refs": "run-s -s runtime:find | xargs -0 sed -i '' -e \"s/'\\.\\.\\//'\\.\\//g\" -e \"s/'\\.\\/\\.\\./'../g\"",
     "test": "ava",
     "test-cloudflare-workers": "ava --timeout=5m --config ./test-cloudflare-workers.config.cjs",
     "test-deno": "deno test --reload --jobs --allow-net --allow-read test-deno",
     "test-browsers": "find test-browser -type f -name '*.js' -print0 | xargs -0 npx esbuild --log-level=warning --outdir=dist-browser-tests --bundle && karma start",
     "prettier": "npx prettier --loglevel silent --write ./test ./src ./tools ./test-browser ./test-deno ./test-cloudflare-workers"
-  },
-  "dependencies": {
-    "@stablelib/blake2b": "^1.0.1",
-    "@stablelib/xchacha20": "^1.0.1",
-    "@stablelib/xchacha20poly1305": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^16.11.1",
@@ -95,9 +93,12 @@
     "karma-summary-reporter": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "p-throttle": "^5.0.0",
+    "patch-package": "^6.4.7",
     "prettier": "^2.4.1",
     "qunit": "^2.17.2",
     "tar": "^6.1.11",
+    "typedoc": "~0.21.9",
+    "typedoc-plugin-markdown": "~3.10.4",
     "typescript": "^4.4.3"
   }
 }
