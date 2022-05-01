@@ -85,7 +85,7 @@ const { V4: { verify } } = paseto
 | Version | Security Fixes 🔑 | Other Bug Fixes 🐞 | New Features ⭐ | Node.js version supported | 
 | ------- | --------- | -------- | -------- | -------- |
 | [3.x.x](https://github.com/panva/paseto) | ✅ | ✅ | ✅ | >= 16.0.0 |
-| [2.x.x](https://github.com/panva/paseto/tree/v2.x) | ✅ | ✅ until 2022-04-30 | ❌ | ^12.19.0 &vert;&vert; >=14.15.0 |
+| [2.x.x](https://github.com/panva/paseto/tree/v2.x) | ✅ | ❌ | ❌ | ^12.19.0 &vert;&vert; >=14.15.0 |
 | [1.x.x](https://github.com/panva/paseto/tree/v1.x) | ✅ | ❌ | ❌ | >= 12.0.0 |
 
 #### Semver?
