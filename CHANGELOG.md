@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.1](https://github.com/panva/paseto/compare/v3.1.0...v3.1.1) (2022-09-12)
+
+
+### Bug Fixes
+
+* verify/decrypt without a footer ([0d8be5e](https://github.com/panva/paseto/commit/0d8be5e0266363437f1afe007e74933556692919)), closes [#33](https://github.com/panva/paseto/issues/33)
+
 ## [3.1.0](https://github.com/panva/paseto/compare/v3.0.1...v3.1.0) (2021-10-18)
 
 
