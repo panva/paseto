@@ -28,8 +28,6 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "coverage": "c8 ava",
-    "lint-ts": "npx typescript@~3.6.0 --build types",
     "test": "ava",
     "watch": "ava --watch"
   },
@@ -41,7 +39,6 @@
   "devDependencies": {
     "@types/node": "^16.4.0",
     "ava": "^3.15.0",
-    "c8": "^7.6.0",
     "sinon": "^11.1.2"
   },
   "engines": {
