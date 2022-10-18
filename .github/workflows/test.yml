@@ -21,5 +21,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          check-latest: true
       - run: npm clean-install
       - run: npm run test
