@@ -13,7 +13,7 @@ jobs:
       matrix:
         node-version:
           - lts/gallium # 16
-          - 18 # lts/hydrogen
+          - lts/hydrogen # 18
           - current
     steps:
       - uses: actions/checkout@v3
