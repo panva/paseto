@@ -133,6 +133,6 @@ import * as paseto from './index.d'
       subject: 'string',
     })
 
-    b['subject']
+    b['arbitrary claim']
   }
 })()
