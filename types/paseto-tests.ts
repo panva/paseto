@@ -121,7 +121,7 @@ import * as paseto from './index.d'
     a.purpose
     a.version
 
-    await paseto.V1.decrypt(token, key, {
+    const b = await paseto.V1.decrypt(token, key, {
       audience: 'string',
       clockTolerance: '60s',
       ignoreExp: true,
@@ -132,5 +132,7 @@ import * as paseto from './index.d'
       now: new Date(),
       subject: 'string',
     })
+
+    b['subject']
   }
 })()
