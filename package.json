@@ -29,6 +29,7 @@
   ],
   "scripts": {
     "test": "ava",
+    "test-types": "tsc --project types",
     "watch": "ava --watch"
   },
   "ava": {
@@ -39,7 +40,8 @@
   "devDependencies": {
     "@types/node": "^16.4.0",
     "ava": "^3.15.0",
-    "sinon": "^11.1.2"
+    "sinon": "^11.1.2",
+    "typescript": "^3.6.0"
   },
   "engines": {
     "node": ">=16.0.0"
