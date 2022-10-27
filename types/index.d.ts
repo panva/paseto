@@ -5,7 +5,7 @@ export interface ProduceOptions {
   assertion?: string | Buffer
   audience?: string
   expiresIn?: string
-  footer?: object | string | Buffer
+  footer?: Record<PropertyKey, unknown> | string | Buffer
   iat?: boolean
   issuer?: string
   jti?: string
@@ -30,7 +30,7 @@ export interface ConsumeOptions<TComplete extends boolean> {
 }
 export interface CompleteResult {
   footer?: Buffer
-  payload: object
+  payload: Record<string, unknown>
   purpose: 'local' | 'public'
   version: string
 }
@@ -47,7 +47,7 @@ export interface CompleteResultBuffer {
 }
 export interface DecodeResult {
   footer?: Buffer
-  payload?: object
+  payload?: Record<string, unknown>
   purpose: 'local' | 'public'
   version: string
 }
@@ -60,12 +60,12 @@ export interface DecodeResultBuffer {
 export function decode(token: string): DecodeResult
 export namespace V1 {
   function sign(
-    payload: object | Buffer,
+    payload: Record<PropertyKey, unknown> | Buffer,
     key: KeyObject | Buffer | PrivateKeyInput | JsonWebKeyInput | string,
     options?: Omit<ProduceOptions, 'assertion'>,
   ): Promise<string>
   function encrypt(
-    payload: object | Buffer,
+    payload: Record<PropertyKey, unknown> | Buffer,
     key: KeyObject | Buffer | string,
     options?: Omit<ProduceOptions, 'assertion'>,
   ): Promise<string>
@@ -73,7 +73,7 @@ export namespace V1 {
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: Omit<ConsumeOptions<false>, 'assertion'>,
-  ): Promise<object>
+  ): Promise<Record<string, unknown>>
   function verify(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
@@ -93,7 +93,7 @@ export namespace V1 {
     token: string,
     key: KeyObject | Buffer | string,
     options?: Omit<ConsumeOptions<false>, 'assertion'>,
-  ): Promise<object>
+  ): Promise<Record<string, unknown>>
   function decrypt(
     token: string,
     key: KeyObject | Buffer | string,
@@ -116,7 +116,7 @@ export namespace V1 {
 }
 export namespace V2 {
   function sign(
-    payload: object | Buffer,
+    payload: Record<PropertyKey, unknown> | Buffer,
     key: KeyObject | Buffer | PrivateKeyInput | JsonWebKeyInput | string,
     options?: Omit<ProduceOptions, 'assertion'>,
   ): Promise<string>
@@ -124,7 +124,7 @@ export namespace V2 {
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: Omit<ConsumeOptions<false>, 'assertion'>,
-  ): Promise<object>
+  ): Promise<Record<string, unknown>>
   function verify(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
@@ -148,12 +148,12 @@ export namespace V2 {
 }
 export namespace V3 {
   function sign(
-    payload: object | Buffer,
+    payload: Record<PropertyKey, unknown> | Buffer,
     key: KeyObject | Buffer | PrivateKeyInput | JsonWebKeyInput | string,
     options?: ProduceOptions,
   ): Promise<string>
   function encrypt(
-    payload: object | Buffer,
+    payload: Record<PropertyKey, unknown> | Buffer,
     key: KeyObject | Buffer | string,
     options?: ProduceOptions,
   ): Promise<string>
@@ -161,7 +161,7 @@ export namespace V3 {
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: ConsumeOptions<false>,
-  ): Promise<object>
+  ): Promise<Record<string, unknown>>
   function verify(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
@@ -181,7 +181,7 @@ export namespace V3 {
     token: string,
     key: KeyObject | Buffer | string,
     options?: ConsumeOptions<false>,
-  ): Promise<object>
+  ): Promise<Record<string, unknown>>
   function decrypt(
     token: string,
     key: KeyObject | Buffer | string,
@@ -206,7 +206,7 @@ export namespace V3 {
 }
 export namespace V4 {
   function sign(
-    payload: object | Buffer,
+    payload: Record<PropertyKey, unknown> | Buffer,
     key: KeyObject | Buffer | PrivateKeyInput | JsonWebKeyInput | string,
     options?: ProduceOptions,
   ): Promise<string>
@@ -214,7 +214,7 @@ export namespace V4 {
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: ConsumeOptions<false>,
-  ): Promise<object>
+  ): Promise<Record<string, unknown>>
   function verify(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
