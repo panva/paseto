@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.2](https://github.com/panva/paseto/compare/v3.1.1...v3.1.2) (2022-10-27)
+
+
+### Bug Fixes
+
+* **typescript:** avoid object type ([#36](https://github.com/panva/paseto/issues/36)) ([3f46fa1](https://github.com/panva/paseto/commit/3f46fa1b8e7835f91045ea636f8e04b5524a7d4a))
+
 ## [3.1.1](https://github.com/panva/paseto/compare/v3.1.0...v3.1.1) (2022-09-12)
 
 
