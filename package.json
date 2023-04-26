@@ -41,12 +41,12 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^16.4.0",
-    "ava": "^5.0.1",
+    "@types/node": "^16.18.25",
+    "ava": "^5.2.0",
     "prettier": "^2.8.8",
     "sinon": "^11.1.2",
     "tsd": "^0.28.1",
-    "typescript": "^3.6.0"
+    "typescript": "^3.9.10"
   },
   "engines": {
     "node": ">=16.0.0"
