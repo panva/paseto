@@ -1,6 +1,10 @@
 /// <reference types="node" />
 // TypeScript Version: 3.6
 import { KeyObject, PrivateKeyInput, PublicKeyInput, JsonWebKeyInput } from 'crypto'
+type JsonObject = { [Key in string]?: JsonValue }
+type JsonArray = JsonValue[]
+type JsonPrimitive = string | number | boolean | null
+type JsonValue = JsonPrimitive | JsonObject | JsonArray
 export interface ProduceOptions {
   assertion?: string | Buffer
   audience?: string
@@ -28,7 +32,7 @@ export interface ConsumeOptions<TComplete extends boolean> {
   now?: Date
   subject?: string
 }
-export interface CompleteResult<T = Record<string, unknown>> {
+export interface CompleteResult<T = Record<string, JsonValue | undefined>> {
   footer?: Buffer
   payload: T
   purpose: 'local' | 'public'
@@ -45,9 +49,9 @@ export interface CompleteResultBuffer {
   purpose: 'local' | 'public'
   version: string
 }
-export interface DecodeResult {
+export interface DecodeResult<T = Record<string, JsonValue | undefined>> {
   footer?: Buffer
-  payload?: Record<string, unknown>
+  payload?: T
   purpose: 'local' | 'public'
   version: string
 }
@@ -57,7 +61,7 @@ export interface DecodeResultBuffer {
   purpose: 'local' | 'public'
   version: string
 }
-export function decode(token: string): DecodeResult
+export function decode<T = Record<string, JsonValue | undefined>>(token: string): DecodeResult<T>
 export namespace V1 {
   function sign(
     payload: Record<PropertyKey, unknown> | Buffer,
@@ -69,12 +73,12 @@ export namespace V1 {
     key: KeyObject | Buffer | string,
     options?: Omit<ProduceOptions, 'assertion'>,
   ): Promise<string>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: Omit<ConsumeOptions<false>, 'assertion'>,
   ): Promise<T>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: Omit<ConsumeOptions<true>, 'assertion'>,
@@ -89,12 +93,12 @@ export namespace V1 {
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: Omit<ConsumeOptionsBuffer<true>, 'assertion'>,
   ): Promise<CompleteResultBuffer>
-  function decrypt<T = Record<string, unknown>>(
+  function decrypt<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | string,
     options?: Omit<ConsumeOptions<false>, 'assertion'>,
   ): Promise<T>
-  function decrypt<T = Record<string, unknown>>(
+  function decrypt<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | string,
     options?: Omit<ConsumeOptions<true>, 'assertion'>,
@@ -120,12 +124,12 @@ export namespace V2 {
     key: KeyObject | Buffer | PrivateKeyInput | JsonWebKeyInput | string,
     options?: Omit<ProduceOptions, 'assertion'>,
   ): Promise<string>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: Omit<ConsumeOptions<false>, 'assertion'>,
   ): Promise<T>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: Omit<ConsumeOptions<true>, 'assertion'>,
@@ -157,12 +161,12 @@ export namespace V3 {
     key: KeyObject | Buffer | string,
     options?: ProduceOptions,
   ): Promise<string>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: ConsumeOptions<false>,
   ): Promise<T>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: ConsumeOptions<true>,
@@ -177,12 +181,12 @@ export namespace V3 {
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: ConsumeOptionsBuffer<true>,
   ): Promise<CompleteResultBuffer>
-  function decrypt<T = Record<string, unknown>>(
+  function decrypt<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | string,
     options?: ConsumeOptions<false>,
   ): Promise<T>
-  function decrypt<T = Record<string, unknown>>(
+  function decrypt<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | string,
     options?: ConsumeOptions<true>,
@@ -210,12 +214,12 @@ export namespace V4 {
     key: KeyObject | Buffer | PrivateKeyInput | JsonWebKeyInput | string,
     options?: ProduceOptions,
   ): Promise<string>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: ConsumeOptions<false>,
   ): Promise<T>
-  function verify<T = Record<string, unknown>>(
+  function verify<T = Record<string, JsonValue | undefined>>(
     token: string,
     key: KeyObject | Buffer | PublicKeyInput | JsonWebKeyInput | string,
     options?: ConsumeOptions<true>,

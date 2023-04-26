@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "test": "ava",
-    "test-types": "tsc --project types",
+    "test-types": "tsd",
     "watch": "ava --watch"
   },
   "ava": {
@@ -41,6 +41,7 @@
     "@types/node": "^16.4.0",
     "ava": "^5.0.1",
     "sinon": "^11.1.2",
+    "tsd": "^0.28.1",
     "typescript": "^3.6.0"
   },
   "engines": {
