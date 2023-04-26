@@ -1,4 +1,6 @@
-import * as paseto from './index.d'
+import * as paseto from '.'
+import {expectType} from 'tsd';
+
 ;(async () => {
   {
     const key = await paseto.V2.generateKey('public')
@@ -133,6 +135,17 @@ import * as paseto from './index.d'
       subject: 'string',
     })
 
-    b['arbitrary claim']
+    switch (typeof b.arbitrary) {
+      case 'symbol':
+      case 'function':
+      case 'bigint':
+        expectType<never>(b.arbitrary)
+    }
+
+    const c = await paseto.V1.decrypt<{ foo: number }>(token, key)
+    expectType<number>(c.foo)
+
+    const d = await paseto.V1.decrypt<{ foo: number }>(token, key, { complete: true })
+    expectType<number>(d.payload.foo)
   }
 })()
