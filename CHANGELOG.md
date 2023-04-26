@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.3](https://github.com/panva/paseto/compare/v3.1.2...v3.1.3) (2023-04-26)
+
+
+### Bug Fixes
+
+* add generics to complete payload results and decode ([#43](https://github.com/panva/paseto/issues/43)) ([df20460](https://github.com/panva/paseto/commit/df20460b72b5c53a3b38b6126df21eaac7940b95))
+
 ## [3.1.2](https://github.com/panva/paseto/compare/v3.1.1...v3.1.2) (2022-10-27)
 
 
