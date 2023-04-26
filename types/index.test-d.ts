@@ -1,6 +1,5 @@
 import * as paseto from '.'
-import {expectType} from 'tsd';
-
+import { expectType } from 'tsd'
 ;(async () => {
   {
     const key = await paseto.V2.generateKey('public')

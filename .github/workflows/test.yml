@@ -10,6 +10,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/hydrogen # 18
+          cache: 'npm'
+      - run: npm clean-install
+      - run: npm run format-check
+
+  test-types:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/hydrogen # 18
+          cache: 'npm'
+      - run: npm clean-install
+      - run: npm run test-types
+
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -27,4 +53,3 @@ jobs:
           check-latest: true
       - run: npm clean-install
       - run: npm run test
-      - run: npm run test-types

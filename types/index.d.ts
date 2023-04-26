@@ -114,9 +114,15 @@ export namespace V1 {
     options?: Omit<ConsumeOptionsBuffer<true>, 'assertion'>,
   ): Promise<CompleteResultBuffer>
   function generateKey(purpose: 'local' | 'public'): Promise<KeyObject>
-  function generateKey(purpose: 'local' | 'public', options: { format: 'keyobject' }): Promise<KeyObject>
+  function generateKey(
+    purpose: 'local' | 'public',
+    options: { format: 'keyobject' },
+  ): Promise<KeyObject>
   function generateKey(purpose: 'local', options: { format: 'paserk' }): Promise<string>
-  function generateKey(purpose: 'public', options: { format: 'paserk' }): Promise<{ secretKey: string, publicKey: string }>
+  function generateKey(
+    purpose: 'public',
+    options: { format: 'paserk' },
+  ): Promise<{ secretKey: string; publicKey: string }>
 }
 export namespace V2 {
   function sign(
@@ -146,7 +152,10 @@ export namespace V2 {
   ): Promise<CompleteResultBuffer>
   function generateKey(purpose: 'public'): Promise<KeyObject>
   function generateKey(purpose: 'public', options: { format: 'keyobject' }): Promise<KeyObject>
-  function generateKey(purpose: 'public', options: { format: 'paserk' }): Promise<{ secretKey: string, publicKey: string }>
+  function generateKey(
+    purpose: 'public',
+    options: { format: 'paserk' },
+  ): Promise<{ secretKey: string; publicKey: string }>
   function bytesToKeyObject(bytes: Buffer): KeyObject
   function keyObjectToBytes(keyObject: KeyObject): Buffer
 }
@@ -202,9 +211,15 @@ export namespace V3 {
     options?: ConsumeOptionsBuffer<true>,
   ): Promise<CompleteResultBuffer>
   function generateKey(purpose: 'local' | 'public'): Promise<KeyObject>
-  function generateKey(purpose: 'local' | 'public', options: { format: 'keyobject' }): Promise<KeyObject>
+  function generateKey(
+    purpose: 'local' | 'public',
+    options: { format: 'keyobject' },
+  ): Promise<KeyObject>
   function generateKey(purpose: 'local', options: { format: 'paserk' }): Promise<string>
-  function generateKey(purpose: 'public', options: { format: 'paserk' }): Promise<{ secretKey: string, publicKey: string }>
+  function generateKey(
+    purpose: 'public',
+    options: { format: 'paserk' },
+  ): Promise<{ secretKey: string; publicKey: string }>
   function bytesToKeyObject(bytes: Buffer): KeyObject
   function keyObjectToBytes(keyObject: KeyObject): Buffer
 }
@@ -236,7 +251,10 @@ export namespace V4 {
   ): Promise<CompleteResultBuffer>
   function generateKey(purpose: 'public'): Promise<KeyObject>
   function generateKey(purpose: 'public', options: { format: 'keyobject' }): Promise<KeyObject>
-  function generateKey(purpose: 'public', options: { format: 'paserk' }): Promise<{ secretKey: string, publicKey: string }>
+  function generateKey(
+    purpose: 'public',
+    options: { format: 'paserk' },
+  ): Promise<{ secretKey: string; publicKey: string }>
   function bytesToKeyObject(bytes: Buffer): KeyObject
   function keyObjectToBytes(keyObject: KeyObject): Buffer
 }
