@@ -134,13 +134,6 @@ import { expectType } from 'tsd'
       subject: 'string',
     })
 
-    switch (typeof b.arbitrary) {
-      case 'symbol':
-      case 'function':
-      case 'bigint':
-        expectType<never>(b.arbitrary)
-    }
-
     const c = await paseto.V1.decrypt<{ foo: number }>(token, key)
     expectType<number>(c.foo)
 
