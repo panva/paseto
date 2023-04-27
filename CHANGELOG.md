@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.4](https://github.com/panva/paseto/compare/v3.1.3...v3.1.4) (2023-04-27)
+
+
+### Bug Fixes
+
+* stick with Record<string,unknown> types ([ca8bfab](https://github.com/panva/paseto/commit/ca8bfabbb883692401648db672b76200404a1796))
+
 ## [3.1.3](https://github.com/panva/paseto/compare/v3.1.2...v3.1.3) (2023-04-26)
 
 
