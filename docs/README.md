@@ -50,6 +50,7 @@ Serializes and signs the payload as a PASETO using the provided private key.
 - `key`: `<KeyObject>` The key to sign with. Alternatively a `'k4.secret.[data]'` 
   PASERK string, any input that works for `crypto.createPrivateKey()`, or `V4.bytesToKeyObject()`.
 - `options`: `<Object>`
+  - `assertion`: `<string>` &vert; `<Buffer>` PASETO Implicit Assertion
   - `audience`: `<string>` PASETO Audience, "aud" claim value, if provided it will replace
     "aud" found in the payload
   - `expiresIn`: `<string>` PASETO Expiration Time, "exp" claim value, specified as string which is
@@ -106,6 +107,7 @@ Verifies the claims and signature of a PASETO
 - `key`: `<KeyObject>` The key to verify with. Alternatively a `'k4.public.[data]'` 
   PASERK string, any input that works for `crypto.createPublicKey()` or `V4.bytesToKeyObject()`.
 - `options`: `<Object>`
+  - `assertion`: `<string>` &vert; `<Buffer>` PASETO Implicit Assertion
   - `audience`: `<string>` Expected audience value. An exact match must be found in the payload.
   - `clockTolerance`: `<string>` Clock Tolerance for comparing timestamps, provided as timespan
     string e.g. `120s`, `2 minutes`, etc. **Default:** no clock tolerance
