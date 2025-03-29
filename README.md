@@ -84,7 +84,7 @@ const { V4: { verify } } = paseto
 
 | Version                                           | Security Fixes 🔑 | Other Bug Fixes 🐞 | New Features ⭐ |
 | ------------------------------------------------- | ----------------- | ------------------ | --------------- |
-| [v3.x](https://github.com/panva/paseto/tree/v3.x) | [Security Policy] | ✅                 | ❌              |
+| [v3.x](https://github.com/panva/paseto/tree/v3.x) | [Security Policy] | ❌                 | ❌              |
 
 #### Semver?
 
