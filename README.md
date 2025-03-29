@@ -2,16 +2,18 @@
 
 > [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with no dependencies.
 
+#### Supported Library Versions
+
+| Version                                           | Security Fixes 🔑 | Other Bug Fixes 🐞 | New Features ⭐ |
+| ------------------------------------------------- | ----------------- | ------------------ | --------------- |
+| [v3.x](https://github.com/panva/paseto/tree/v3.x) | [Security Policy] | ❌                 | ❌              |
+
 ## Implemented Protocol Versions
 
 |  | v1 | v2 | v3 | v4 | 
 | -- | -- | -- | -- | -- |
 | local | ✅ | ❌ | ✅ | ❌ |
 | public | ✅ | ✅ | ✅ | ✅ |
-
-## Support
-
-If you or your business use paseto, please consider becoming a [sponsor][support-sponsor] so I can continue maintaining it and adding new features carefree.
 
 ## Documentation
 
@@ -79,12 +81,6 @@ const { V4: { verify } } = paseto
 ```
 
 ## FAQ
-
-#### Supported Library Versions
-
-| Version                                           | Security Fixes 🔑 | Other Bug Fixes 🐞 | New Features ⭐ |
-| ------------------------------------------------- | ----------------- | ------------------ | --------------- |
-| [v3.x](https://github.com/panva/paseto/tree/v3.x) | [Security Policy] | ❌                 | ❌              |
 
 #### Semver?
 
