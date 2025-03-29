@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This project is now archived. It may get revived when v5 and v6 protocol versions get released and their underlying crypto becomes readily available in Web Cryptography API implementations across JavaScript runtimes.
+
 # paseto
 
 > [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with no dependencies.
