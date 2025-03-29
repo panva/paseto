@@ -82,11 +82,9 @@ const { V4: { verify } } = paseto
 
 #### Supported Library Versions
 
-| Version | Security Fixes 🔑 | Other Bug Fixes 🐞 | New Features ⭐ | Node.js version supported | 
-| ------- | --------- | -------- | -------- | -------- |
-| [3.x.x](https://github.com/panva/paseto) | ✅ | ✅ | ✅ | >= 16.0.0 |
-| [2.x.x](https://github.com/panva/paseto/tree/v2.x) | ✅ | ❌ | ❌ | ^12.19.0 &vert;&vert; >=14.15.0 |
-| [1.x.x](https://github.com/panva/paseto/tree/v1.x) | ✅ | ❌ | ❌ | >= 12.0.0 |
+| Version                                           | Security Fixes 🔑 | Other Bug Fixes 🐞 | New Features ⭐ |
+| ------------------------------------------------- | ----------------- | ------------------ | --------------- |
+| [v3.x](https://github.com/panva/paseto/tree/v3.x) | [Security Policy] | ✅                 | ❌              |
 
 #### Semver?
 
@@ -106,3 +104,4 @@ It is **only built for Node.js** environment versions >=16.0.0
 [documentation-v2]: https://github.com/panva/paseto/blob/main/docs/README.md#v2-paseto-protocol-version-v2
 [documentation-v1]: https://github.com/panva/paseto/blob/main/docs/README.md#v1-paseto-protocol-version-v1
 [support-sponsor]: https://github.com/sponsors/panva
+[Security Policy]: https://github.com/panva/paseto/security/policy
