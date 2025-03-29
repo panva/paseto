@@ -6,7 +6,7 @@ The following major versions are currently supported with security updates.
 
 | Version                                           | End-of-life |
 | ------------------------------------------------- | ----------- |
-| [v3.x](https://github.com/panva/paseto/tree/v3.x) | TBD         |
+| [v3.x](https://github.com/panva/paseto/tree/v3.x) | 2026-04-30  |
 
 End-of-life for the current release will be determined prior to the release of its successor.
 
