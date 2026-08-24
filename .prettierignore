@@ -1,0 +1,8 @@
+build
+coverage
+dist
+docs
+package-lock.json
+test/vectors/*.json
+test/vectors/**/*.json
+test/vectors/README.md

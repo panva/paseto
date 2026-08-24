@@ -1,59 +1,149 @@
 name: Test
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
   schedule:
-    - cron: '5 11 * * 1'
+    - cron: '53 11 * * 1'
   workflow_dispatch:
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: 'npm'
-      - run: npm clean-install
-      - run: npm run format-check
-
-  test-types:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: 'npm'
-      - run: npm clean-install
-      - run: npm run test-types
-
   node-versions:
-    uses: panva/.github/.github/workflows/node-versions.yml@main
+    uses: panva/.github/.github/workflows/node-versions.yml@bd045b0d7d15f7827910cdedd3e7f0570bc5bf58
     with:
-      min: 16
+      min: 22
 
-  test:
+  build:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+          check-latest: true
+      - run: npm clean-install
+      - run: node --run build
+      - run: node --run build:other
+      - name: Type-level regression tests
+        run: node --run typecheck:types
+      - name: Packaging metadata and type resolution
+        run: node --run check:packaging
+      - name: Flat module and tree-shaking contract
+        run: node --run check:treeshaking
+      - name: Packed artifact contents and runtime
+        run: node --run test:dist
+      - run: node --run format -- --write false --check --log-level warn
+      - run: git diff --exit-code
+
+  docs:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+          check-latest: true
+      - run: npm clean-install
+      - run: git diff --exit-code
+      - uses: r-lib/actions/setup-pandoc@d3c5be51b12e724e68f33216ca3c148b66d5f0b6 # v2.12.1
+        with:
+          pandoc-version: latest
+      - run: node --run test:docs
+
+  node:
     needs:
       - node-versions
+      - build
     strategy:
+      fail-fast: false
       matrix:
         node-version: ${{ fromJSON(needs.node-versions.outputs.matrix) }}
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           check-latest: true
       - run: npm clean-install
-      - run: npm run test
+      - run: node --run test
+
+  deno:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: latest
+      - run: npm clean-install
+      - run: deno run test:deno
+
+  bun:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: latest
+      - run: npm clean-install
+      - run: bun run test:bun
+
+  workerd:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+          check-latest: true
+          cache-dependency-path: |
+            package-lock.json
+            test/workerd/package-lock.json
+      - run: npm clean-install
+      - run: npm clean-install --prefix test/workerd
+      - run: node --run test:workerd
+        env:
+          WORKERD_BIN: ${{ github.workspace }}/test/workerd/node_modules/.bin/workerd
+          WORKERD_MODULE: ${{ github.workspace }}/test/workerd/node_modules/workerd
+
+  browsers:
+    needs: build
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, safari]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+          check-latest: true
+      - run: npm clean-install
+      - name: get playwright version
+        id: playwright-version
+        run:
+          echo "version=$(node -p "require('./node_modules/playwright/package.json').version")" >>
+          "$GITHUB_OUTPUT"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/Library/Caches/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+      - run: ./node_modules/.bin/playwright install --only-shell chromium firefox webkit
+      - run: node --run test:browsers
+        env:
+          BROWSER: ${{ matrix.browser }}

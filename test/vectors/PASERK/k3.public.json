@@ -1,0 +1,24 @@
+{
+  "name": "PASERK k3.public Test Vectors",
+  "tests": [
+    {
+      "name": "k3.public-1",
+      "expect-fail": false,
+      "key": "02000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k3.public.AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    {
+      "name": "k3.public-2",
+      "expect-fail": false,
+      "key": "02707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
+      "paserk": "k3.public.AnBxcnN0dXZ3eHl6e3x9fn-AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2enw"
+    },
+    {
+      "name": "k3.public-fail-1",
+      "expect-fail": true,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e90",
+      "paserk": null,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version."
+    }
+  ]
+}

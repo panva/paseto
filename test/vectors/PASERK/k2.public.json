@@ -1,0 +1,30 @@
+{
+  "name": "PASERK k2.public Test Vectors",
+  "tests": [
+    {
+      "name": "k2.public-1",
+      "expect-fail": false,
+      "key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k2.public.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    {
+      "name": "k2.public-2",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k2.public.cHFyc3R1dnd4eXp7fH1-f4CBgoOEhYaHiImKi4yNjo8"
+    },
+    {
+      "name": "k2.public-3",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e90",
+      "paserk": "k2.public.cHFyc3R1dnd4eXp7fH1-f4CBgoOEhYaHiImKi4yNjpA"
+    },
+    {
+      "name": "k2.public-fail-1",
+      "expect-fail": true,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version.",
+      "key":  "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyaTgTt53ph3p5GHgwoGW\nwz5hRfWXSQA08NCOwe0FEgALWos9GCjNFCd723nCHxBtN1qd74MSh/uN88JPIbwx\nKheDp4kxo4YMN5trPaF0e9G6Bj1N02HnanxFLW+gmLbgYO/SZYfWF/M8yLBcu5Y1\nOt0ZxDDDXS9wIQTtBE0ne3YbxgZJAZTU5XqyQ1DxdzYyC5lF6yBaR5UQtCYTnXAA\npVRuUI2Sd6L1E2vl9bSBumZ5IpNxkRnAwIMjeTJB/0AIELh0mE5vwdihOCbdV6al\nUyhKC1+1w/FW6HWcp/JG1kKC8DPIidZ78Bbqv9YFzkAbNni5eSBOsXVBKG78Zsc8\nowIDAQAB\n-----END PUBLIC KEY-----",
+      "paserk": null
+    }
+  ]
+}

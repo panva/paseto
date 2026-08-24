@@ -1,0 +1,89 @@
+{
+  "$schema": "https://typedoc-plugin-markdown.org/schema.json",
+  "logLevel": "Warn",
+  "treatWarningsAsErrors": true,
+  "disableSources": true,
+  "hideBreadcrumbs": true,
+  "visibilityFilters": {
+    "protected": false,
+    "private": false,
+    "inherited": true,
+    "external": false
+  },
+  "includeVersion": false,
+  "entryPoints": [
+    "index.ts",
+    "v1/local.ts",
+    "v1/public.ts",
+    "v2/local.ts",
+    "v2/public.ts",
+    "v3/local.ts",
+    "v3/public.ts",
+    "v4/local.ts",
+    "v4/public.ts"
+  ],
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "intentionallyNotExported": [
+    "ClaimsInput",
+    "CryptoKeyStructuralFallback",
+    "LocalCapabilityMethod",
+    "PublicCapabilityMethod"
+  ],
+  "gitRevision": "main",
+  "hideGenerator": true,
+  "out": "docs",
+  "plugin": ["typedoc-plugin-markdown", "typedoc-plugin-remark", "./docs-theme.ts"],
+  "readme": "none",
+  "sort": ["kind", "static-first", "required-first", "alphabetical"],
+  "categoryOrder": [
+    "Protocol Composition",
+    "Local Implementations",
+    "Public Implementations",
+    "Local Token Operations",
+    "Local Key Management",
+    "Local Key Wrapping",
+    "Public Token Operations",
+    "Public Key Management",
+    "Public Key Wrapping",
+    "Token Operations",
+    "Key Management",
+    "CryptoKey Adapters",
+    "Key Wrapping",
+    "Password-Based Key Wrapping",
+    "Key Sealing",
+    "Tokens and Claims",
+    "Keys",
+    "PASERK Serializations",
+    "Utilities",
+    "Errors"
+  ],
+  "githubPages": false,
+  "parametersFormat": "table",
+  "indexFormat": "table",
+  "hidePageHeader": true,
+  "expandObjects": false,
+  "expandParameters": false,
+  "interfacePropertiesFormat": "list",
+  "tableColumnSettings": {
+    "hideDefaults": true,
+    "hideInherited": false,
+    "hideModifiers": false,
+    "hideOverrides": false,
+    "hideSources": false,
+    "hideValues": false,
+    "leftAlignHeaders": true
+  },
+  "theme": "my-markdown",
+  "remarkStringifyOptions": { "bullet": "-" },
+  "remarkPlugins": [
+    {
+      "applyTo": ["Class", "Interface"],
+      "plugins": [
+        ["remark-insert-headings", { "text": "Contents" }],
+        ["remark-toc", { "maxDepth": 3, "skip": "Extends|See|Example" }]
+      ]
+    }
+  ]
+}

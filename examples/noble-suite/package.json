@@ -1,0 +1,13 @@
+{
+  "name": "paseto-noble-reference",
+  "version": "0.0.0",
+  "description": "Repository-only @noble/* reference primitives for paseto tests",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@noble/ciphers": "^2.3.0",
+    "@noble/curves": "^2.3.0",
+    "@noble/hashes": "^2.3.0"
+  }
+}

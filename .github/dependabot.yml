@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    groups:
+      actions:
+        patterns:
+          - '*'
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    allow:
+      - dependency-name: 'playwright'
+  - package-ecosystem: 'npm'
+    directory: '/test/workerd'
+    schedule:
+      interval: 'monthly'
+    allow:
+      - dependency-name: 'workerd'

@@ -1,0 +1,28 @@
+{
+  "include": ["api.ts"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "paths": {
+      "paseto": ["../index.ts"],
+      "paseto/v1/local": ["../v1/local.ts"],
+      "paseto/v1/public": ["../v1/public.ts"],
+      "paseto/v2/local": ["../v2/local.ts"],
+      "paseto/v2/public": ["../v2/public.ts"],
+      "paseto/v3/local": ["../v3/local.ts"],
+      "paseto/v3/public": ["../v3/public.ts"],
+      "paseto/v4/local": ["../v4/local.ts"],
+      "paseto/v4/public": ["../v4/public.ts"]
+    },
+    "lib": ["ESNext", "DOM"],
+    "types": ["node"],
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": false,
+    "noEmit": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  }
+}

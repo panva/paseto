@@ -1,0 +1,37 @@
+{
+  "name": "PASERK k2.pid Test Vectors",
+  "tests": [
+    {
+      "name": "k2.pid-1",
+      "expect-fail": false,
+      "key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k2.pid.gUztDB_2F1oxWaUa0RYxGYtLw_0TN-g5mw_M7HUMLh7D"
+    },
+    {
+      "name": "k2.pid-2",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k2.pid.4zgEvkSaB64DlcV9ChYZPEqBATLwUsB5zCrlpEOk2wD9"
+    },
+    {
+      "name": "k2.pid-3",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e90",
+      "paserk": "k2.pid.2Jd0YsfxY7YWVCHWG0BOc9CCVZmSqRXz0B-p7ENnkxqG"
+    },
+    {
+      "name": "k2.pid-fail-1",
+      "expect-fail": true,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e",
+      "paserk": null,
+      "comment": "Small public keys must fail to serialize"
+    },
+    {
+      "name": "k2.pid-fail-2",
+      "expect-fail": true,
+      "key":  "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyaTgTt53ph3p5GHgwoGW\nwz5hRfWXSQA08NCOwe0FEgALWos9GCjNFCd723nCHxBtN1qd74MSh/uN88JPIbwx\nKheDp4kxo4YMN5trPaF0e9G6Bj1N02HnanxFLW+gmLbgYO/SZYfWF/M8yLBcu5Y1\nOt0ZxDDDXS9wIQTtBE0ne3YbxgZJAZTU5XqyQ1DxdzYyC5lF6yBaR5UQtCYTnXAA\npVRuUI2Sd6L1E2vl9bSBumZ5IpNxkRnAwIMjeTJB/0AIELh0mE5vwdihOCbdV6al\nUyhKC1+1w/FW6HWcp/JG1kKC8DPIidZ78Bbqv9YFzkAbNni5eSBOsXVBKG78Zsc8\nowIDAQAB\n-----END PUBLIC KEY-----",
+      "paserk": null,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version."
+    }
+  ]
+}

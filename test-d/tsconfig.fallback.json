@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["fallback.ts"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": false,
+    "disableSourceOfProjectReferenceRedirect": true,
+    "lib": ["ESNext"],
+    "paths": {
+      "paseto": ["../index.d.ts"],
+      "paseto/v3/local": ["../v3/local.d.ts"],
+      "paseto/v4/public": ["../v4/public.d.ts"]
+    },
+    "types": []
+  }
+}
