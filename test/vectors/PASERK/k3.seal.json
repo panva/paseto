@@ -1,0 +1,39 @@
+{
+  "name": "PASERK k3.seal Test Vectors",
+  "tests": [
+    {
+      "name": "k3.seal-1",
+      "expect-fail": false,
+      "sealing-secret-key": "-----BEGIN EC PRIVATE KEY-----\nMIGkAgEBBDAhUb6WGhABE1MTj0x7E/5acgyap23kh7hUAVoAavKyfhYcmI3n1Q7L\nJpHxNb792H6gBwYFK4EEACKhZANiAAT5H7mTSOyjfILDtSuavZfalI3doM8pRUlb\nTzNyYLqM9iVmajpc0JRXvKuBtGtYi7Yft+eqFr6BuzGrdb4Z1vkvRcI504m0qKiE\nzjhi6u4sNgzW23rrVkRYkb2oE3SJPko=\n-----END EC PRIVATE KEY-----",
+      "sealing-public-key": "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE+R+5k0jso3yCw7Urmr2X2pSN3aDPKUVJ\nW08zcmC6jPYlZmo6XNCUV7yrgbRrWIu2H7fnqha+gbsxq3W+Gdb5L0XCOdOJtKio\nhM44YuruLDYM1tt661ZEWJG9qBN0iT5K\n-----END PUBLIC KEY-----",
+      "unsealed": "0000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k3.seal.NsI9NFzAouTSs7V5mejAeyBLYcoeNlbb9eY8C2KnkPTsARsPLen9KfMFfgqeI50FAnuRCdcb4HmXPaY3i-ZdBXwfdqSiB_65lmIHosVOJ7chmqqscnBkA7vc3mEAXxM05hSytjBYFxwlUnfFE3Sq3YHUZrOELF7PM87K6FFOMqc6"
+    },
+    {
+      "name": "k3.seal-2",
+      "expect-fail": false,
+      "sealing-secret-key": "-----BEGIN EC PRIVATE KEY-----\nMIGkAgEBBDAhUb6WGhABE1MTj0x7E/5acgyap23kh7hUAVoAavKyfhYcmI3n1Q7L\nJpHxNb792H6gBwYFK4EEACKhZANiAAT5H7mTSOyjfILDtSuavZfalI3doM8pRUlb\nTzNyYLqM9iVmajpc0JRXvKuBtGtYi7Yft+eqFr6BuzGrdb4Z1vkvRcI504m0qKiE\nzjhi6u4sNgzW23rrVkRYkb2oE3SJPko=\n-----END EC PRIVATE KEY-----",
+      "sealing-public-key": "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE+R+5k0jso3yCw7Urmr2X2pSN3aDPKUVJ\nW08zcmC6jPYlZmo6XNCUV7yrgbRrWIu2H7fnqha+gbsxq3W+Gdb5L0XCOdOJtKio\nhM44YuruLDYM1tt661ZEWJG9qBN0iT5K\n-----END PUBLIC KEY-----",
+      "unsealed": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "paserk": "k3.seal.qCFR9x-TwGcUQgprulNtvJqy7ZOipwmHQMOXXaJKetgYFsDm1aP3P9ljbCcDFlj0AqWxxuxaIFi59cCHDAysYdL5gzsVUTz-boo5G4V49FGiJu4kGj5pov1RKijsvaN4XQVhui57jUKWMy1fnjC5E6DrYlII2WWBKVMSbsnXuPGI"
+    },
+    {
+      "name": "k3.seal-fail-1",
+      "expect-fail": true,
+      "comment": "Invalid authentication tag on sealed key.",
+      "sealing-secret-key": "-----BEGIN EC PRIVATE KEY-----\nMIGkAgEBBDAhUb6WGhABE1MTj0x7E/5acgyap23kh7hUAVoAavKyfhYcmI3n1Q7L\nJpHxNb792H6gBwYFK4EEACKhZANiAAT5H7mTSOyjfILDtSuavZfalI3doM8pRUlb\nTzNyYLqM9iVmajpc0JRXvKuBtGtYi7Yft+eqFr6BuzGrdb4Z1vkvRcI504m0qKiE\nzjhi6u4sNgzW23rrVkRYkb2oE3SJPko=\n-----END EC PRIVATE KEY-----",
+      "sealing-public-key": "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE+R+5k0jso3yCw7Urmr2X2pSN3aDPKUVJ\nW08zcmC6jPYlZmo6XNCUV7yrgbRrWIu2H7fnqha+gbsxq3W+Gdb5L0XCOdOJtKio\nhM44YuruLDYM1tt661ZEWJG9qBN0iT5K\n-----END PUBLIC KEY-----",
+      "unsealed": null,
+      "paserk": "k3.seal.LpevSc3v4VYqlUjEr3OD4LSMaYspcU-VlqI8rpywnFwVKqT1sMJQB_K3GwyszVueA8QJ3KmBUr4ravEb8DsazPuXcWbrnQF4CJmUQSgaTI4YyCb35n-xkx8CDA7ig-m-lhhYKkp_r3Ybcm-s9BKPlPW2VRr682ukbrCTRXFlR9tS"
+    },
+    {
+      "name": "k3.seal-fail-2",
+      "expect-fail": true,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version.",
+      "sealing-secret-key": "a770cf90f55d8a6dec51190eb640cb25ce31f7e5eb87a00ca9859022e6da9518a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "sealing-public-key": "a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "unsealed": null,
+      "paserk": "k4.seal.3-VOL4pX5b7eV3uMhYHfOhJNN77YyYtd7wYXrH9rRucKNmq0aO-6AWIFU4xOXUCBk0mzBZeWAPAKrvejqixqeRXm-MQXt8yFGHmM1RzpdJw80nabbyDIsNCpBwltU-uj"
+    }
+  ]
+}

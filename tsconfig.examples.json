@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["./examples/**/*.ts"],
+  "exclude": ["./examples/noble-suite/**/*.ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "isolatedDeclarations": false
+  }
+}

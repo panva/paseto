@@ -1,54 +1,152 @@
 {
   "name": "paseto",
-  "version": "3.1.4",
-  "description": "PASETO for Node.js with no dependencies",
+  "version": "4.0.0",
+  "description": "PASETO and PASERK for Node.js, Browser, Cloudflare Workers, Deno, Bun, and other Web-interoperable runtimes",
   "keywords": [
-    "decode",
-    "decrypt",
-    "encrypt",
-    "local",
+    "authentication",
+    "authorization",
+    "browser",
+    "bun",
+    "cloudflare",
+    "cryptography",
+    "deno",
+    "edge",
+    "encryption",
+    "paserk",
     "paseto",
-    "public",
-    "sign",
-    "v1",
-    "v2",
-    "v3",
-    "v4",
-    "verify"
+    "security",
+    "signing",
+    "token",
+    "webcrypto",
+    "workerd",
+    "workers"
   ],
   "homepage": "https://github.com/panva/paseto",
   "repository": "panva/paseto",
-  "funding": "https://github.com/sponsors/panva",
+  "funding": {
+    "url": "https://github.com/sponsors/panva"
+  },
   "license": "MIT",
   "author": "Filip Skokan <panva.ip@gmail.com>",
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "sideEffects": false,
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./v1/local": {
+      "types": "./v1/local.d.ts",
+      "default": "./v1/local.js"
+    },
+    "./v1/public": {
+      "types": "./v1/public.d.ts",
+      "default": "./v1/public.js"
+    },
+    "./v2/local": {
+      "types": "./v2/local.d.ts",
+      "default": "./v2/local.js"
+    },
+    "./v2/public": {
+      "types": "./v2/public.d.ts",
+      "default": "./v2/public.js"
+    },
+    "./v3/local": {
+      "types": "./v3/local.d.ts",
+      "default": "./v3/local.js"
+    },
+    "./v3/public": {
+      "types": "./v3/public.d.ts",
+      "default": "./v3/public.js"
+    },
+    "./v4/local": {
+      "types": "./v4/local.d.ts",
+      "default": "./v4/local.js"
+    },
+    "./v4/public": {
+      "types": "./v4/public.d.ts",
+      "default": "./v4/public.js"
+    }
+  },
   "files": [
-    "lib",
-    "types/index.d.ts"
+    "_internal/**/*.js",
+    "index.d.ts",
+    "index.d.ts.map",
+    "index.js",
+    "index.ts",
+    "v1/local.d.ts",
+    "v1/local.d.ts.map",
+    "v1/local.js",
+    "v1/local.ts",
+    "v1/public.d.ts",
+    "v1/public.d.ts.map",
+    "v1/public.js",
+    "v1/public.ts",
+    "v2/local.d.ts",
+    "v2/local.d.ts.map",
+    "v2/local.js",
+    "v2/local.ts",
+    "v2/public.d.ts",
+    "v2/public.d.ts.map",
+    "v2/public.js",
+    "v2/public.ts",
+    "v3/local.d.ts",
+    "v3/local.d.ts.map",
+    "v3/local.js",
+    "v3/local.ts",
+    "v3/public.d.ts",
+    "v3/public.d.ts.map",
+    "v3/public.js",
+    "v3/public.ts",
+    "v4/local.d.ts",
+    "v4/local.d.ts.map",
+    "v4/local.js",
+    "v4/local.ts",
+    "v4/public.d.ts",
+    "v4/public.d.ts.map",
+    "v4/public.js",
+    "v4/public.ts"
   ],
   "scripts": {
-    "_format": "find lib types test -type f -name '*.ts' -o -name '*.mjs' -name '*.cjs' | xargs prettier",
-    "format": "npm run _format -- --write",
-    "format-check": "npm run _format -- --check",
-    "test": "ava",
-    "test-types": "tsd",
-    "watch": "ava --watch"
-  },
-  "ava": {
-    "files": [
-      "test/**/*.test.js"
-    ]
+    "build": "node build.cjs",
+    "build:other": "npx tsc -p tsconfig.test.json && npx tsc -p tsconfig.examples.json",
+    "check:packaging": "publint run . --strict && node tools/attw-check.js .",
+    "check:treeshaking": "node tools/check-treeshaking.js",
+    "docs": "npx typedoc",
+    "format": "prettier --log-level silent --cache --write '**/*.{ts,js,mjs,cjs,json,yml}' '**/README.md'",
+    "test": "node --test --no-warnings test/*.ts",
+    "test:browsers": "node test/browser.mjs",
+    "test:bun": "bun test ./test/*.ts",
+    "test:deno": "deno test --no-check --allow-read test/*.ts",
+    "test:dist": "node tools/test-dist.js",
+    "test:docs": "./check-examples.sh",
+    "test:workerd": "./test/.workerd.sh",
+    "typecheck:types": "tsc -p test-d && tsc -p test-d/tsconfig.node.json && tsc -p test-d/tsconfig.fallback.json"
   },
   "devDependencies": {
-    "@types/node": "^16.18.25",
-    "ava": "^5.2.0",
-    "prettier": "^2.8.8",
-    "sinon": "^11.1.2",
-    "tsd": "^0.28.1",
-    "typescript": "^3.9.10"
+    "@arethetypeswrong/cli": "0.18.5",
+    "@noble/ciphers": "^2.3.0",
+    "@noble/curves": "^2.3.0",
+    "@noble/hashes": "^2.3.0",
+    "@types/node": "^24.13.3",
+    "amaro": "^1.1.11",
+    "esbuild": "^0.28.1",
+    "fast-check": "4.9.0",
+    "playwright": "^1.62.1",
+    "prettier": "^3.9.6",
+    "prettier-plugin-jsdoc": "^1.8.1",
+    "publint": "0.3.23",
+    "remark-behead": "^3.1.0",
+    "remark-insert-headings": "^1.0.0",
+    "remark-toc": "^9.0.0",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.12.0",
+    "typedoc-plugin-remark": "^2.0.1",
+    "typescript": "^6.0.3"
   },
-  "engines": {
-    "node": ">=16.0.0"
+  "publishConfig": {
+    "access": "public"
   }
 }

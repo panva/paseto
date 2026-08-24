@@ -1,0 +1,30 @@
+{
+  "name": "PASERK k2.lid Test Vectors",
+  "tests": [
+    {
+      "name": "k2.lid-1",
+      "expect-fail": false,
+      "key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k2.lid.WpgZ4rDluvqGSwOFQfbkxem-i3lRJ92XPPPwHEDm-gtE"
+    },
+    {
+      "name": "k2.lid-2",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k2.lid.keK316jg65NYOw6BbBHJHeQ7YWpyuHfNRxBVtY3kNoXG"
+    },
+    {
+      "name": "k2.lid-3",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e90",
+      "paserk": "k2.lid.n-Eq3LSDD2sdKE5DjJmZmXQ7-O7BT8mhYoSg_TvDC6x1"
+    },
+    {
+      "name": "k2.lid-fail-1",
+      "expect-fail": true,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e",
+      "paserk": null,
+      "comment": "If the key is too short, this must fail to serialize."
+    }
+  ]
+}

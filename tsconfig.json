@@ -1,0 +1,41 @@
+{
+  "files": ["./index.ts"],
+  "include": [
+    "./_internal/**/*.ts",
+    "./v1/local.ts",
+    "./v1/public.ts",
+    "./v2/local.ts",
+    "./v2/public.ts",
+    "./v3/local.ts",
+    "./v3/public.ts",
+    "./v4/local.ts",
+    "./v4/public.ts"
+  ],
+  "exclude": ["./_internal/**/*.d.ts"],
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "NodeNext",
+    "target": "esnext",
+    "types": [],
+    "sourceMap": false,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "isolatedDeclarations": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
+}

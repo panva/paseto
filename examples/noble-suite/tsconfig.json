@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "files": ["./index.ts", "./k1-seal.node.ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "declarationMap": false,
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
+  }
+}

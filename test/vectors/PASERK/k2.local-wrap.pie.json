@@ -1,0 +1,35 @@
+{
+  "name": "PASERK k2.local-wrap.pie Test Vectors",
+  "tests": [
+    {
+      "name": "k2.local-wrap.pie-1",
+      "expect-fail": false,
+      "unwrapped": "0000000000000000000000000000000000000000000000000000000000000000",
+      "wrapping-key":"707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k2.local-wrap.pie.vRFzOX-h6lsRQBpBaRbPv5WbT8Kcv_a_NDUfp4kcn-Un6mL2-H1nuZ5YxctgLT4I476TViftvpJu6XJ4iwraTprnVB8KrZaMo387BznW4wYOrC7CZaBpg683sOnmDjtb"
+    },
+    {
+      "name": "k2.local-wrap.pie-2",
+      "expect-fail": false,
+      "unwrapped": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "wrapping-key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k2.local-wrap.pie.UNK6-S4s4uZ2oc7Ntujea9FdRDWgmWmkFJrZPQtVb_Z4GF2iWN7UVPXyKGYfF1WkqVk7a4iWuxAx8KwpoNZEPHK1Ym6PtROKDeMpBPo-G0I9cDyh_r764LGy3NqRb6_0"
+    },
+    {
+      "name": "k2.local-wrap.pie-fail-1",
+      "expect-fail": true,
+      "comment": "Invalid authentication tag on ciphertext",
+      "unwrapped": null,
+      "wrapping-key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k2.local-wrap.pie.UNK6-S4s4uZ2oc7Ntujea9FdRDWgmWmkFJrZPQtVb_Z4GF2iWN7UVPXyKGYfF1WkqVk7a4iWuxAx8KwpoNZEPHK1Ym6PtROKDeMpBPo-G0I9cDyh_r764LGy4NqRb7_1"
+    },
+    {
+      "name": "k2.local-wrap.pie-fail-2",
+      "expect-fail": true,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version.",
+      "unwrapped": null,
+      "wrapping-key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k1.local-wrap.pie.aMF7_m3KXH8Rgoo4ow1FYEThHAhaNR1deM9SbRRnHR9-ao5qckA-b0sltysyHG8jPor1oVTCiTxS0Bx8Rt6Dnxy9rMGEYwrqfQfrXJLNnvh6O19Id0TwJ-vMnagj3xJeGEZMSO8K9JaZrgh6sBAWng"
+    }
+  ]
+}

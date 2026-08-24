@@ -1,19 +1,23 @@
 # Contributing to paseto
 
-Please note we have a [code of conduct][coc], please follow it in all your interactions with the
+Please note that this project has a [code of conduct][coc]; follow it in all interactions with the
 project.
 
-When contributing to this project, please first discuss the change you wish to make via a discussion,
-email, or any other appropriate method with the owners of this project before proposing a change 
-via a Pull Request. The project promotes and follows current best practices in regards to the 
-specifications it implements. A contribution that tries to implement something non-standard will most 
-likely be dismissed.
+Before proposing a change, discuss it with the project owners through a discussion, email, or
+another appropriate channel. The project follows the PASETO and PASERK specifications. Changes that
+introduce non-standard protocol behavior are unlikely to be accepted.
 
-## Rules of the discussions
+## Test vectors
 
-Remember to be very clear and transparent when discussing any issue in the discussions boards. We
-ask that you keep the language to English and keep on track with the issue at hand. Lastly, please
-be respectful of our fellow contributors and keep an exemplary level of professionalism at all
-times.
+Protocol fixtures must come from the official PASETO or PASERK projects. When adding them, retain
+the upstream file contents and copy the corresponding upstream license or notice alongside the
+fixtures. Record the upstream repository and commit so that updates remain auditable. Do not
+relicense upstream test vectors under this project's MIT license.
+
+## Discussions
+
+Be clear and transparent when discussing an issue. Keep discussions in English and focused on the
+topic at hand. Be respectful of fellow contributors and maintain an exemplary level of
+professionalism.
 
 [coc]: https://github.com/panva/paseto/blob/main/CODE_OF_CONDUCT.md

@@ -1,6 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/prettierrc.json",
   "trailingComma": "all",
   "singleQuote": true,
   "printWidth": 100,
-  "semi": false
+  "semi": false,
+  "plugins": ["prettier-plugin-jsdoc"],
+  "tsdoc": true,
+  "jsdocSeparateReturnsFromParam": true,
+  "jsdocSeparateTagGroups": false,
+  "jsdocPrintWidth": 100,
+  "proseWrap": "always",
+  "objectWrap": "collapse"
 }
