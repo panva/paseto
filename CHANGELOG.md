@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.0.0](https://github.com/panva/paseto/compare/v3.1.4...v4.0.0) (2026-09-02)
+
+### ⚠ BREAKING CHANGES
+
+* rewrite PASETO and PASERK from scratch
+
+### Features
+
+* rewrite PASETO and PASERK from scratch ([e8ed397](https://github.com/panva/paseto/commit/e8ed3971f97567883880c3da4f1071edcced0abe))
+
+### Documentation
+
+* include `assertion` PASETO implicit assertion in v4 ([b88d4ab](https://github.com/panva/paseto/commit/b88d4abaa3029fe08c189c6e94f9a09016e47af9))
+* update README ([3da0c4d](https://github.com/panva/paseto/commit/3da0c4d836f233f722054c9283cf11ed9094cdd4))
+* update README.md ([50186ee](https://github.com/panva/paseto/commit/50186ee6dfd0762cf5126c6cef488b01cedf0cde))
+
 ## [3.1.4](https://github.com/panva/paseto/compare/v3.1.3...v3.1.4) (2023-04-27)
 
 
