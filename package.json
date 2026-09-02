@@ -1,6 +1,6 @@
 {
   "name": "paseto",
-  "version": "4.0.0",
+  "version": "3.1.4",
   "description": "PASETO and PASERK for Node.js, Browser, Cloudflare Workers, Deno, Bun, and other Web-interoperable runtimes",
   "keywords": [
     "authentication",

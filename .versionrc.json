@@ -2,7 +2,7 @@
   "commit-all": true,
   "scripts": {
     "prerelease": "node --run format && node --run docs && git diff --exit-code && node --run test && node --run build",
-    "postbump": "git add index.js index.d.ts index.d.ts.map -f",
+    "postbump": "git add -f -- index.js index.d.ts index.d.ts.map _internal/bytes.js _internal/bytes.d.ts _internal/bytes.d.ts.map _internal/keys.js _internal/keys.d.ts _internal/keys.d.ts.map _internal/crypto.js _internal/crypto.d.ts _internal/crypto.d.ts.map _internal/operations.js _internal/operations.d.ts _internal/operations.d.ts.map v1/local.js v1/local.d.ts v1/local.d.ts.map v1/public.js v1/public.d.ts v1/public.d.ts.map v2/local.js v2/local.d.ts v2/local.d.ts.map v2/public.js v2/public.d.ts v2/public.d.ts.map v3/local.js v3/local.d.ts v3/local.d.ts.map v3/public.js v3/public.d.ts v3/public.d.ts.map v4/local.js v4/local.d.ts v4/local.d.ts.map v4/public.js v4/public.d.ts v4/public.d.ts.map",
     "postchangelog": "node ./tools/postchangelog.cjs"
   },
   "types": [
