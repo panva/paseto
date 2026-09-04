@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.0.1](https://github.com/panva/paseto/compare/v4.0.0...v4.0.1) (2026-09-04)
+
+### Refactor
+
+* delegate P-384 point operations to Web Crypto ([d638b72](https://github.com/panva/paseto/commit/d638b7231610313861ae6e6cae7d5f50e63e1389))
+
 ## [4.0.0](https://github.com/panva/paseto/compare/v3.1.4...v4.0.0) (2026-09-02)
 
 ### ⚠ BREAKING CHANGES
