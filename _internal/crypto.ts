@@ -16,6 +16,7 @@ import {
   empty,
   equalBytes,
   randomBytes,
+  toB64u,
   webCryptoBytes,
 } from './bytes.ts'
 import {
@@ -327,14 +328,8 @@ const p384AlgorithmIdentifier = /* @__PURE__ */ Uint8Array.of(
   0x22,
 )
 
-const p384Field = /* @__PURE__ */ BigInt(
-  '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000ffffffff',
-)
 const p384Order = /* @__PURE__ */ BigInt(
   '0xffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973',
-)
-const p384B = /* @__PURE__ */ BigInt(
-  '0xb3312fa7e23ee7e4988e056be3f82d19181d9c6efe8141120314088f5013875ac656398d8a2ed19d2a85c8edd3ec2aef',
 )
 const p384Generator = {
   x: /* @__PURE__ */ BigInt(
@@ -345,95 +340,17 @@ const p384Generator = {
   ),
 }
 
-interface P384Point {
-  readonly x: bigint
-  readonly y: bigint
-  readonly z: bigint
-}
-
-function p384Mod(value: bigint): bigint {
-  const reduced = value % p384Field
-  return reduced < 0n ? reduced + p384Field : reduced
-}
-
-function p384Pow(base: bigint, exponent: bigint): bigint {
-  let result = 1n
-  let value = p384Mod(base)
-  let remaining = exponent
-  while (remaining !== 0n) {
-    if ((remaining & 1n) === 1n) result = p384Mod(result * value)
-    value = p384Mod(value * value)
-    remaining >>= 1n
-  }
-  return result
-}
-
-function p384Double(point: P384Point): P384Point {
-  if (point.z === 0n || point.y === 0n) return { x: 0n, y: 1n, z: 0n }
-  const delta = p384Mod(point.z * point.z)
-  const gamma = p384Mod(point.y * point.y)
-  const beta = p384Mod(point.x * gamma)
-  const alpha = p384Mod(3n * (point.x - delta) * (point.x + delta))
-  const x = p384Mod(alpha * alpha - 8n * beta)
-  const z = p384Mod((point.y + point.z) * (point.y + point.z) - gamma - delta)
-  const y = p384Mod(alpha * (4n * beta - x) - 8n * gamma * gamma)
-  return { x, y, z }
-}
-
-function p384AddGenerator(point: P384Point): P384Point {
-  if (point.z === 0n) return { ...p384Generator, z: 1n }
-  const zSquared = p384Mod(point.z * point.z)
-  const u2 = p384Mod(p384Generator.x * zSquared)
-  const s2 = p384Mod(p384Generator.y * point.z * zSquared)
-  const h = p384Mod(u2 - point.x)
-  const r = p384Mod(2n * (s2 - point.y))
-  if (h === 0n) return r === 0n ? p384Double(point) : { x: 0n, y: 1n, z: 0n }
-  const i = p384Mod(4n * h * h)
-  const j = p384Mod(h * i)
-  const v = p384Mod(point.x * i)
-  const x = p384Mod(r * r - j - 2n * v)
-  const y = p384Mod(r * (v - x) - 2n * point.y * j)
-  const z = p384Mod((point.z + h) * (point.z + h) - zSquared - h * h)
-  return { x, y, z }
-}
-
-function p384PublicFromScalar(scalar: Uint8Array): Uint8Array {
-  const value = bytesToBigInt(scalar)
-  if (value === 0n || value >= p384Order) {
-    throw new InvalidKeyError('Invalid P-384 secret scalar')
-  }
-
-  // Some Web Crypto implementations require the optional publicKey field in an ECPrivateKey.
-  // Deriving that field is compatibility glue only; all private-key operations remain in Web Crypto.
-  // JavaScript BigInt arithmetic is not constant-time; the derived public point is cached after import.
-  let point: P384Point = { x: 0n, y: 1n, z: 0n }
-  for (let bit = 383n; bit >= 0n; bit--) {
-    const doubled = p384Double(point)
-    const incremented = p384AddGenerator(doubled)
-    point = ((value >> bit) & 1n) === 0n ? doubled : incremented
-  }
-  if (point.z === 0n) throw new InvalidKeyError('Invalid P-384 secret scalar')
-  const inverse = p384Pow(point.z, p384Field - 2n)
-  const inverseSquared = p384Mod(inverse * inverse)
-  const x = p384Mod(point.x * inverseSquared)
-  const y = p384Mod(point.y * inverseSquared * inverse)
-  if (p384Mod(y * y) !== p384Mod(x * x * x - 3n * x + p384B)) {
-    throw new InvalidKeyError('Invalid derived P-384 public key')
-  }
-  return concat(Uint8Array.of(0x04), bigIntToBytes(x, 48), bigIntToBytes(y, 48))
-}
-
-export function decompressP384(compressed: Uint8Array): Uint8Array {
+export async function decompressP384(compressed: Uint8Array): Promise<Uint8Array> {
   if (compressed.byteLength !== 49 || (compressed[0] !== 0x02 && compressed[0] !== 0x03)) {
     throw new InvalidKeyError('Invalid P-384 public key')
   }
-  const x = bytesToBigInt(compressed.subarray(1))
-  if (x >= p384Field) throw new InvalidKeyError('Invalid P-384 public key')
-  const ordinate = p384Mod(x * x * x - 3n * x + p384B)
-  let y = p384Pow(ordinate, (p384Field + 1n) / 4n)
-  if (p384Mod(y * y) !== ordinate) throw new InvalidKeyError('Invalid P-384 public key')
-  if (Number(y & 1n) !== (compressed[0]! & 1)) y = p384Field - y
-  return concat(Uint8Array.of(0x04), bigIntToBytes(x, 48), bigIntToBytes(y, 48))
+  try {
+    const key = await p384PublicCryptoKey(compressed, 'ECDH', [], true)
+    return await exportRawPublicCryptoKey(key)
+  } catch (cause) {
+    if (cause instanceof UnsupportedAlgorithmError || cause instanceof InvalidKeyError) throw cause
+    throw new InvalidKeyError('Invalid P-384 public key', { cause })
+  }
 }
 
 function p384PrivatePkcs8(scalar: Uint8Array, publicKey?: Uint8Array): Uint8Array {
@@ -766,72 +683,134 @@ export async function generateRsaKeyPair(
   }
 }
 
-export async function p384RawPublicFromSecret(
+async function importP384KeyPair(
   material: Uint8Array,
   algorithm: 'ECDSA' | 'ECDH',
   usage: 'sign' | 'deriveBits',
-): Promise<Uint8Array> {
+  extractable: boolean,
+): Promise<CryptoKeyPair> {
   checkBytes(material, 'material', 48)
   const scalar = bytesToBigInt(material)
   if (scalar === 0n || scalar >= p384Order) {
     throw new InvalidKeyError('Invalid P-384 secret scalar')
   }
-  try {
-    const key = await webCryptoOperation(`${algorithm} with P-384`, () =>
-      crypto.subtle.importKey(
-        'pkcs8',
-        webCryptoBytes(p384PrivatePkcs8(material)),
-        { name: algorithm, namedCurve: 'P-384' },
-        true,
-        [usage],
-      ),
-    )
-    const jwk = await webCryptoOperation(`${algorithm} with P-384`, () =>
-      crypto.subtle.exportKey('jwk', key),
-    )
-    return concat(Uint8Array.of(0x04), jwkBytes(jwk.x, 'x'), jwkBytes(jwk.y, 'y'))
-  } catch (cause) {
-    if (cause instanceof UnsupportedAlgorithmError) throw cause
-    const raw = p384PublicFromScalar(material)
+  // Snapshot the scalar before awaiting, including when material is a Buffer.
+  const pkcs8 = p384PrivatePkcs8(material)
+  const d = toB64u(material)
+  const keyAlgorithm = { name: algorithm, namedCurve: 'P-384' }
+  const publicUsages: KeyUsage[] = algorithm === 'ECDSA' ? ['verify'] : []
+  return await webCryptoOperation(`${algorithm} with P-384`, async () => {
+    const c = crypto.subtle
+    async function fromJwk(jwk: JsonWebKey, privateKey?: CryptoKey): Promise<CryptoKeyPair> {
+      privateKey ??= await c.importKey('jwk', jwk, keyAlgorithm, extractable, [usage])
+      delete jwk.d
+      const publicKey = await c.importKey('jwk', jwk, keyAlgorithm, true, publicUsages)
+      return { privateKey, publicKey }
+    }
+
+    let privateKey: CryptoKey | undefined
+    // @ts-expect-error SubtleCrypto.getPublicKey is not declared by every TypeScript Web Crypto lib.
+    const nativePublicKey = typeof c.getPublicKey === 'function'
     try {
-      await webCryptoOperation(`${algorithm} with P-384`, () =>
-        crypto.subtle.importKey(
-          'pkcs8',
-          webCryptoBytes(p384PrivatePkcs8(material, raw)),
-          { name: algorithm, namedCurve: 'P-384' },
-          false,
-          [usage],
-        ),
+      privateKey = await c.importKey(
+        'pkcs8',
+        webCryptoBytes(pkcs8),
+        keyAlgorithm,
+        nativePublicKey ? extractable : true,
+        [usage],
+      )
+      if (nativePublicKey) {
+        // Also confirm that scalar-only import recovered a usable public point.
+        // @ts-expect-error SubtleCrypto.getPublicKey is not declared by every TypeScript Web Crypto lib.
+        const publicKey = await c.getPublicKey(privateKey, publicUsages)
+        return { privateKey, publicKey }
+      }
+      const { x, y } = await c.exportKey('jwk', privateKey)
+      return fromJwk(
+        { kty: 'EC', crv: 'P-384', x: x!, y: y!, d },
+        extractable ? privateKey : undefined,
       )
     } catch (cause) {
-      if (cause instanceof UnsupportedAlgorithmError) throw cause
-      throw new InvalidKeyError('Invalid P-384 secret key', { cause })
+      // WebKit requires public coordinates on import; Firefox cannot export them
+      // from scalar-only PKCS8. Other errors must not trigger recovery.
+      // https://bugs.webkit.org/show_bug.cgi?id=302707
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=2000795
+      if (
+        !(cause instanceof DOMException) ||
+        (cause.name !== 'DataError' && cause.name !== 'OperationError')
+      )
+        throw cause
     }
-    return raw
-  }
+
+    const generator: JsonWebKey = {
+      kty: 'EC',
+      crv: 'P-384',
+      x: toB64u(bigIntToBytes(p384Generator.x, 48)),
+      y: toB64u(bigIntToBytes(p384Generator.y, 48)),
+    }
+    const jwk = { ...generator, d }
+    const signingAlgorithm = { name: 'ECDSA', namedCurve: 'P-384' }
+    const agreementAlgorithm = { name: 'ECDH', namedCurve: 'P-384' }
+    async function temporaryKey(name: 'ECDSA' | 'ECDH', keyUsage: KeyUsage): Promise<CryptoKey> {
+      if (privateKey?.algorithm.name === name) return privateKey
+      return privateKey
+        ? await c.importKey('pkcs8', webCryptoBytes(pkcs8), { name, namedCurve: 'P-384' }, false, [
+            keyUsage,
+          ])
+        : await c.importKey('jwk', jwk, { name, namedCurve: 'P-384' }, false, [keyUsage])
+    }
+    const signingKey = await temporaryKey('ECDSA', 'sign')
+    const agreementKey = await temporaryKey('ECDH', 'deriveBits')
+    const generatorKey = await c.importKey('jwk', generator, agreementAlgorithm, true, [])
+    // ECDH(d, G) recovers x(dG). Temporary keys may carry generator coordinates
+    // on WebKit, so none of these private keys may escape this function.
+    const x = new Uint8Array(
+      await c.deriveBits({ name: 'ECDH', public: generatorKey }, agreementKey, 384),
+    )
+    const message = webCryptoBytes(ascii('PASETO public key recovery'))
+    const signatureAlgorithm = { name: 'ECDSA', hash: 'SHA-384' }
+    const signature = await c.sign(signatureAlgorithm, signingKey, message)
+    // Compressed point import recovers both possible y values; verification
+    // selects the public point matching the private scalar.
+    for (const prefix of [0x02, 0x03]) {
+      const candidate = await c.importKey(
+        'spki',
+        webCryptoBytes(p384PublicSpki(concat(Uint8Array.of(prefix), x))),
+        signingAlgorithm,
+        true,
+        ['verify'],
+      )
+      if (await c.verify(signatureAlgorithm, candidate, signature, message)) {
+        const { x, y } = await c.exportKey('jwk', candidate)
+        return fromJwk({ kty: 'EC', crv: 'P-384', x: x!, y: y!, d })
+      }
+    }
+    throw new InvalidKeyError('P-384 public key recovery failed')
+  })
+}
+
+export async function p384RawPublicFromSecret(
+  material: Uint8Array,
+  algorithm: 'ECDSA' | 'ECDH',
+  usage: 'sign' | 'deriveBits',
+): Promise<Uint8Array> {
+  const { publicKey } = await importP384KeyPair(material, algorithm, usage, false)
+  return await exportRawPublicCryptoKey(publicKey)
 }
 
 export async function importP384SecretKey(
   material: Uint8Array,
   extractable: boolean,
 ): Promise<SecretKey<3>> {
-  const raw = await p384RawPublicFromSecret(material, 'ECDSA', 'sign')
-  const cryptoKey = await webCryptoOperation('ECDSA with P-384', () =>
-    crypto.subtle.importKey(
-      'pkcs8',
-      webCryptoBytes(p384PrivatePkcs8(material, raw)),
-      { name: 'ECDSA', namedCurve: 'P-384' },
-      extractable,
-      ['sign'],
-    ),
-  )
-  const publicMaterial = compressP384(raw)
-  const publicKey = await p384PublicCryptoKey(publicMaterial, 'ECDSA', ['verify'], true)
+  checkBytes(material, 'material', 48)
+  material = new Uint8Array(material)
+  const { privateKey, publicKey } = await importP384KeyPair(material, 'ECDSA', 'sign', extractable)
+  const raw = await exportRawPublicCryptoKey(publicKey)
   return new SecretKeyImpl(
     3,
-    cryptoKey,
+    privateKey,
     extractable ? material : undefined,
-    publicMaterial,
+    compressP384(raw),
     raw,
     publicKey,
   )
@@ -1004,10 +983,11 @@ export async function p384PrivateCryptoKey(
   if ('cryptoKey' in data) return data.cryptoKey
   const publicMaterial = data.publicMaterial
   try {
+    const pkcs8 = p384PrivatePkcs8(data.material, await decompressP384(publicMaterial))
     return await webCryptoOperation(`${algorithm} with P-384`, () =>
       crypto.subtle.importKey(
         'pkcs8',
-        webCryptoBytes(p384PrivatePkcs8(data.material, decompressP384(publicMaterial))),
+        webCryptoBytes(pkcs8),
         { name: algorithm, namedCurve: 'P-384' },
         false,
         [usage],

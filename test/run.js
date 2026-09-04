@@ -1,4 +1,6 @@
 // Shared runtime-neutral test logic for browsers and workerd.
+import * as p384 from '../_internal/crypto.js'
+import { checkP384Keys } from './p384-keys.js'
 
 const encoder = new TextEncoder()
 
@@ -629,6 +631,12 @@ export async function runRuntimeTests({
       test.error = error?.stack ?? error?.message ?? String(error)
     }
     onTestComplete?.(test, tests)
+  }
+
+  if (mode.onlyNative || !mode.onlyReference) {
+    await run('P-384 native recovery and decompression', () =>
+      checkP384Keys(p384, Native.V3_PUBLIC.SecretKeyToCryptoKey),
+    )
   }
 
   for (const implementation of createImplementations(Native, Noble, mode)) {

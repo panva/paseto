@@ -28,7 +28,8 @@ execSync('npx tsc -p ./examples/noble-suite', { stdio: 'inherit' })
 
 for (const source of runtimeSources) {
   const output = source.replace(/\.ts$/, '.js')
-  let js = amaro.transformSync(fs.readFileSync(source), { mode: 'strip-only' }).code
+  const input = fs.readFileSync(source, 'utf8')
+  let js = amaro.transformSync(input, { mode: 'strip-only' }).code
   js = rewriteRelativeTypeScriptSpecifiers(js)
 
   fs.mkdirSync(path.dirname(output), { recursive: true })
@@ -36,6 +37,7 @@ for (const source of runtimeSources) {
   const before = getFileSizes(output)
 
   js = cleanJavaScript(js)
+  checkPureAnnotations(input, js)
   fs.writeFileSync(output, js)
 
   const after = getFileSizes(output)
@@ -79,7 +81,8 @@ for (const entry of PUBLIC_ENTRIES) {
 {
   const input = './examples/noble-suite/index.ts'
   const output = './examples/noble-suite/index.js'
-  let noble = amaro.transformSync(fs.readFileSync(input), { mode: 'strip-only' }).code
+  const source = fs.readFileSync(input, 'utf8')
+  let noble = amaro.transformSync(source, { mode: 'strip-only' }).code
 
   // Match the package boundary used by runtime test bundles and third-party implementations.
   noble = noble.replace(/(['"])\.\.\/\.\.\/index\.ts\1/g, "'paseto'")
@@ -89,6 +92,7 @@ for (const entry of PUBLIC_ENTRIES) {
   const before = getFileSizes(output)
 
   noble = cleanJavaScript(noble)
+  checkPureAnnotations(source, noble)
   fs.writeFileSync(output, noble)
 
   const after = getFileSizes(output)
@@ -133,6 +137,13 @@ function cleanDeclarationDocs(code) {
     const lineCount = (match.match(/\n/g) || []).length
     return '\n'.repeat(lineCount)
   })
+}
+
+function checkPureAnnotations(source, output) {
+  const annotation = /\/\*\s*[@#]__PURE__\s*\*\//g
+  if ((source.match(annotation)?.length ?? 0) !== (output.match(annotation)?.length ?? 0)) {
+    throw new Error('Build must preserve PURE annotations')
+  }
 }
 
 function cleanJavaScript(code) {
