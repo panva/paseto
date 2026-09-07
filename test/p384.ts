@@ -5,6 +5,7 @@ import { SecretKeyToCryptoKey } from '../v3/public.ts'
 // @ts-expect-error Shared browser test logic.
 import { checkP384Keys, fromHex } from './p384-keys.js'
 import fixture from './p384-fixtures.json' with { type: 'json' }
+import { mockSubtle } from './helpers/subtle.ts'
 
 test('P-384 native recovery and decompression match reference points', async () => {
   await checkP384Keys(api, SecretKeyToCryptoKey)
@@ -12,44 +13,42 @@ test('P-384 native recovery and decompression match reference points', async () 
 
 test('P-384 recovery when scalar-only PKCS8 coordinates cannot be exported', async () => {
   const c = crypto.subtle
-  const descriptor = Object.getOwnPropertyDescriptor(c, 'getPublicKey')
   const importKey = c.importKey
   const exportKey = c.exportKey
   const imported = new WeakSet<CryptoKey>()
   let recoveries = 0
-  Object.defineProperty(c, 'getPublicKey', { value: undefined, configurable: true })
-  c.importKey = (async (...args: unknown[]) => {
-    const key = (await Reflect.apply(importKey, c, args)) as CryptoKey
-    if (args[0] === 'pkcs8') imported.add(key)
-    return key
-  }) as typeof importKey
-  c.exportKey = (async (...args: unknown[]) => {
-    if (args[0] === 'jwk' && imported.has(args[1] as CryptoKey)) {
-      recoveries++
-      throw new DOMException('Public coordinates unavailable', 'OperationError')
-    }
-    return Reflect.apply(exportKey, c, args)
-  }) as typeof exportKey
+  const restore = mockSubtle({
+    getPublicKey: undefined,
+    importKey: async (...args: unknown[]) => {
+      const key = (await Reflect.apply(importKey, c, args)) as CryptoKey
+      if (args[0] === 'pkcs8') imported.add(key)
+      return key
+    },
+    exportKey: async (...args: unknown[]) => {
+      if (args[0] === 'jwk' && imported.has(args[1] as CryptoKey)) {
+        recoveries++
+        throw new DOMException('Public coordinates unavailable', 'OperationError')
+      }
+      return Reflect.apply(exportKey, c, args)
+    },
+  })
   try {
     await checkP384Keys(api, SecretKeyToCryptoKey)
     assert.ok(recoveries > 0)
   } finally {
-    c.importKey = importKey
-    c.exportKey = exportKey
-    if (descriptor) Object.defineProperty(c, 'getPublicKey', descriptor)
-    else Reflect.deleteProperty(c, 'getPublicKey')
+    restore()
   }
 })
 
 test('P-384 recovery propagates unexpected import failures without retrying', async () => {
-  const c = crypto.subtle
-  const importKey = c.importKey
   const cause = new Error('Unexpected import failure')
   let calls = 0
-  c.importKey = async () => {
-    calls++
-    throw cause
-  }
+  const restore = mockSubtle({
+    importKey: async () => {
+      calls++
+      throw cause
+    },
+  })
   try {
     await assert.rejects(
       api.importP384SecretKey(fromHex(fixture.keys[0]!.privateKey), false),
@@ -57,7 +56,7 @@ test('P-384 recovery propagates unexpected import failures without retrying', as
     )
     assert.equal(calls, 1)
   } finally {
-    c.importKey = importKey
+    restore()
   }
 })
 
@@ -67,11 +66,13 @@ test('P-384 native public-key extraction retains the original private key', asyn
   const c = crypto.subtle
   const importKey = c.importKey
   const imported: CryptoKey[] = []
-  c.importKey = (async (...args: unknown[]) => {
-    const key = (await Reflect.apply(importKey, c, args)) as CryptoKey
-    imported.push(key)
-    return key
-  }) as typeof importKey
+  const restore = mockSubtle({
+    importKey: async (...args: unknown[]) => {
+      const key = (await Reflect.apply(importKey, c, args)) as CryptoKey
+      imported.push(key)
+      return key
+    },
+  })
   try {
     for (const extractable of [false, true]) {
       imported.length = 0
@@ -84,6 +85,6 @@ test('P-384 native public-key extraction retains the original private key', asyn
       assert.equal(key.extractable, extractable)
     }
   } finally {
-    c.importKey = importKey
+    restore()
   }
 })

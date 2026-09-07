@@ -3,6 +3,7 @@ import { test } from 'node:test'
 
 import { InvalidKeyError, KDF_ARGON2ID, UnsupportedAlgorithmError } from '../index.ts'
 import { digest, importEd25519PublicKey, importRsaPublicKey } from '../_internal/crypto.ts'
+import { mockSubtle } from './helpers/subtle.ts'
 
 type ImportKey = SubtleCrypto['importKey']
 type Digest = SubtleCrypto['digest']
@@ -12,35 +13,34 @@ async function mockImportKey(
   cause: Error,
   operation: () => Promise<unknown>,
 ): Promise<void> {
-  const prototype = Object.getPrototypeOf(crypto.subtle) as { importKey: ImportKey }
-  const original = prototype.importKey
-  prototype.importKey = async function (
-    this: SubtleCrypto,
-    ...args: unknown[]
-  ): Promise<CryptoKey> {
-    const identifier = args[2]
-    const name = typeof identifier === 'string' ? identifier : (identifier as Algorithm).name
-    if (name === algorithm) throw cause
-    return (await Reflect.apply(original, this, args)) as CryptoKey
-  } as ImportKey
+  const original: ImportKey = crypto.subtle.importKey
+  const restore = mockSubtle({
+    importKey: async function (this: SubtleCrypto, ...args: unknown[]): Promise<CryptoKey> {
+      const identifier = args[2]
+      const name = typeof identifier === 'string' ? identifier : (identifier as Algorithm).name
+      if (name === algorithm) throw cause
+      return (await Reflect.apply(original, this, args)) as CryptoKey
+    },
+  })
   try {
     await operation()
   } finally {
-    prototype.importKey = original
+    restore()
   }
 }
 
 async function mockDigest(cause: Error, operation: () => Promise<unknown>): Promise<void> {
-  const prototype = Object.getPrototypeOf(crypto.subtle) as { digest: Digest }
-  const original = prototype.digest
-  prototype.digest = async function (this: SubtleCrypto, ...args: unknown[]): Promise<ArrayBuffer> {
-    if (args[0] === 'SHA-384') throw cause
-    return (await Reflect.apply(original, this, args)) as ArrayBuffer
-  } as Digest
+  const original: Digest = crypto.subtle.digest
+  const restore = mockSubtle({
+    digest: async function (this: SubtleCrypto, ...args: unknown[]): Promise<ArrayBuffer> {
+      if (args[0] === 'SHA-384') throw cause
+      return (await Reflect.apply(original, this, args)) as ArrayBuffer
+    },
+  })
   try {
     await operation()
   } finally {
-    prototype.digest = original
+    restore()
   }
 }
 
