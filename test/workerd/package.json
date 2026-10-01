@@ -2,6 +2,6 @@
   "name": "paseto-workerd-tests",
   "private": true,
   "devDependencies": {
-    "workerd": "1.20260830.1"
+    "workerd": "1.20260927.1"
   }
 }
