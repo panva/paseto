@@ -3,7 +3,9 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'monthly'
+      interval: 'cron'
+      cronjob: '0 9 * * mon#1'
+      timezone: 'Europe/Prague'
     groups:
       actions:
         patterns:
@@ -11,12 +13,16 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'monthly'
+      interval: 'cron'
+      cronjob: '0 9 * * mon#1'
+      timezone: 'Europe/Prague'
     allow:
       - dependency-name: 'playwright'
   - package-ecosystem: 'npm'
     directory: '/test/workerd'
     schedule:
-      interval: 'monthly'
+      interval: 'cron'
+      cronjob: '0 9 * * mon#1'
+      timezone: 'Europe/Prague'
     allow:
       - dependency-name: 'workerd'
